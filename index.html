@@ -253,6 +253,10 @@
             background-color: #ffffff00;
             color: var(--text-color);
         }
+        
+        .btn-close {
+            --bs-btn-close-focus-shadow: 0 0 0 0.15rem #000;
+        }
 
         /* Hide the toggle on scroll */
         .hidden {
@@ -261,10 +265,32 @@
             transition: visibility 0.2s, opacity 0.2s linear;
         }
 
-        .btn-close {
-            --bs-btn-close-focus-shadow: 0 0 0 0.15rem #000;
+        /* Scroll Bar Styling */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-
+        
+        ::-webkit-scrollbar-track {
+            background: #84848400;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #393939; 
+            border-radius: 999px;
+        }
+        
+        /* Track on hover */
+        ::-webkit-scrollbar-track:hover {
+            width: 10px;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-bg-color); 
+            border: 0;
+        }
     </style>
 </head>
 <body>
