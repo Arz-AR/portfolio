@@ -43,7 +43,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
@@ -133,7 +133,7 @@
             color: var(--text-color);
             text-decoration: none;
             transition: background-color 0.3s ease, color 0.3s ease;
-            padding: 10px 20px;
+            padding: 0.5rem 1rem;
             border-radius: 5px;
             border: 2px solid var(--border-color);
         }
@@ -156,6 +156,8 @@
             padding: 10px;
             border: 2px solid transparent;
             border-radius: 5px;
+            display: inline-flex;
+            text-decoration: none;
         }
 
         .social-icons a:hover {
@@ -217,6 +219,7 @@
             max-width: 100%;
             width: 100%;
             height: auto;
+            border-radius: 10px;
         }
 
         .modal-body .row {
@@ -234,7 +237,7 @@
             top: 20px;
             right: 20px;
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 0.5rem 1rem;
             background-color: var(--hover-bg-color);
             color: var(--hover-text-color);
             border: 2px solid var(--border-color);
@@ -258,6 +261,10 @@
             transition: visibility 0.2s, opacity 0.2s linear;
         }
 
+        .btn-close {
+            --bs-btn-close-focus-shadow: 0 0 0 0.15rem #000;
+        }
+
     </style>
 </head>
 <body>
@@ -268,8 +275,8 @@
     <!-- Toggle Button -->
     <button id="modeToggle">Dark Mode</button>
 
-    <div class="container position-relative pt-5" style="z-index: 10;">
-        <header class="text-center mb-5">
+    <div class="container position-relative py-5" style="z-index: 10;">
+        <header class="text-center my-5">
             <div class="container">
                 <h1 class="d-inline" data-shadow="Arz Abou Rached">Arz Abou Rached</h1>
             </div>
@@ -330,14 +337,14 @@
                 <p class="col-lg-3 col-md-8 m-0 w-100 align-middle">Feel free to reach out to me at: </p>
             </div>
             <div class="col-lg-3 col-md-8 mb-2">
-                <a class="email-link" href="mailto:youremail@example.com">youremail@example.com</a>
+                <a class="email-link" href="mailto:arzabourached@gmail.com">arzabourached@gmail.com</a>
             </div>
 
             <!-- Social Media Icons -->
             <div class="social-icons text-center">
-                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.behance.net" target="_blank"><i class="fab fa-behance"></i></a>
+                <a href="https://www.instagram.com/arz.ar" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/arz-abou-rached" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <!-- <a href="https://www.behance.net" target="_blank"><i class="fab fa-behance"></i></a> -->
             </div>
         </div>
     </section>
@@ -352,7 +359,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="projectModalLabel"></h2>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -446,6 +453,7 @@
 
     // Setup light/dark mode toggle
     const modeToggle = document.getElementById('modeToggle');
+    const btnClose = document.getElementById('btn-close');
 
     modeToggle.addEventListener('click', function() {
         darkMode = !darkMode;
@@ -456,10 +464,12 @@
             cube.material.color.set(0xffffff); // White cube for dark mode
             sphere.material.color.set(0xffffff); // White sphere for dark mode
             modeToggle.textContent = "Light Mode"; // Change button text
+            btnClose.classList.add('btn-close-white');
         } else {
             cube.material.color.set(0x000000); // Black cube for light mode
             sphere.material.color.set(0x000000); // Black sphere for light mode
             modeToggle.textContent = "Dark Mode"; // Change button text
+            btnClose.classList.remove('btn-close-white');
         }
     });
 
@@ -492,6 +502,9 @@
     const sphereMaterial = new THREE.MeshBasicMaterial({ color: sphereColor, wireframe: true });
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphere);
+
+    // Set the cube's position to the center of the canvas (origin)
+    cube.position.set(0, -1.5, 0);
 
     camera.position.z = 10; // Adjust for Orthographic camera depth
 
