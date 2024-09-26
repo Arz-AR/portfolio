@@ -433,6 +433,7 @@
 
     // Setup the project modal
     const projectModal = document.getElementById('projectModal');
+    const btnClose = document.getElementById('btn-close');
     projectModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget; // Button that triggered the modal
         const title = button.getAttribute('data-title'); // Extract info from data-* attributes
@@ -448,12 +449,24 @@
         modalVideo.src = videoSrc;
         modalVideo.play(); // Autoplay the video when modal opens
         modalDescription.textContent = description;
+
+
+        // Push a new history state when the modal opens
+        history.pushState(null, null, window.location.href);
     });
 
     projectModal.addEventListener('hide.bs.modal', function () {
         const modalVideo = projectModal.querySelector('video');
         modalVideo.pause(); // Stop video when modal is closed
         modalVideo.currentTime = 0; // Reset video to the start
+    });
+
+    // Handle the back button on mobile to close the modal
+    window.addEventListener('popstate', function () {
+        const modalElement = bootstrap.Modal.getInstance(projectModal);
+        if (modalElement) {
+            modalElement.hide(); // Close the modal
+        }
     });
 
     // Scroll to top button functionality
@@ -483,7 +496,6 @@
 
     // Setup light/dark mode toggle
     const modeToggle = document.getElementById('modeToggle');
-    const btnClose = document.getElementById('btn-close');
 
     modeToggle.addEventListener('click', function() {
         darkMode = !darkMode;
