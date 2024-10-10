@@ -26,6 +26,7 @@
             --scroll-bg-hover-color: #00000000;
             --scroll-color: #fff;
             --scroll-hover-color: #000;
+            --filter-status: invert(100%);
         }
 
         .dark-mode {
@@ -40,6 +41,7 @@
             --scroll-bg-hover-color: #ffffff;
             --scroll-color: #fff; 
             --scroll-hover-color: #000;
+            --filter-status: invert(0%);
         }
 
         body {
@@ -189,13 +191,12 @@
             color: var(--scroll-hover-color);
         }
 
-        /* Hide the toggle on scroll */
+        /* Show button when scrolling */
         .showing {
             visibility: visible !important;
             opacity: 1 !important;
             transition: visibility 0.2s, opacity 0.2s linear;
         }
-
 
         /* Modal Customization */
         .modal-fullscreen {
@@ -207,11 +208,18 @@
             color: var(--text-color);
         }
 
+        /* Adjust modal header padding */
+        .modal-header {
+            padding-left: calc(20px + (var(--bs-gutter-x)* .5));
+            padding-right: calc(20px + (var(--bs-gutter-x)* .5));
+        }
+
+        /* Make the modal-body scrollable */
         .modal-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
+            overflow-y: auto;
+            max-height: calc(100vh - 120px); /* Adjust as needed */
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         /* Modal layout: video on the left, description on the right */
@@ -223,12 +231,66 @@
         }
 
         .modal-body .row {
-            height: 100%;
+            height: auto;
+        }
+
+        /* Modal Images */
+        .modal-image {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.05);
+            border-color: var(--hover-bg-color);
         }
 
         .modal-body p {
             padding: 20px;
             color: var(--text-color);
+        }
+
+        /* Carousel Overlay Styles */
+        #imageCarousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 1050; /* Higher than modal */
+        }
+
+        #imageCarousel .carousel-item img {
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        #imageCarousel .carousel-control-prev-icon,
+        #imageCarousel .carousel-control-next-icon {
+            filter: var(--filter-status);
+        }
+
+        #imageCarousel .carousel-control-prev,
+        #imageCarousel .carousel-control-next {
+            width: 5%;
+        }
+        
+        /* Carousel Close Button */
+        #carouselClose {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 1056; /* Higher than carousel */
+            border: none;
+        }
+
+        /* Ensure close button is visible */
+        #carouselClose.btn-close {
+            background-color: transparent;
+            border: none;
+            opacity: 1;
         }
 
         /* Toggle button for light/dark mode */
@@ -253,9 +315,11 @@
             background-color: #ffffff00;
             color: var(--text-color);
         }
-        
+
         .btn-close {
             --bs-btn-close-focus-shadow: 0 0 0 0.15rem #000;
+            padding: calc(var(--bs-modal-header-padding-y)* .5) calc(var(--bs-modal-header-padding-x)* .5);
+            margin: calc(-.5* var(--bs-modal-header-padding-y)) calc(-.5* var(--bs-modal-header-padding-x)) calc(-.5* var(--bs-modal-header-padding-y)) auto;
         }
 
         /* Hide the toggle on scroll */
@@ -270,27 +334,28 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: #84848400;
         }
-        
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background: #393939; 
             border-radius: 999px;
         }
-        
+
         /* Track on hover */
         ::-webkit-scrollbar-track:hover {
             width: 10px;
         }
-        
+
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: var(--hover-bg-color); 
             border: 0;
         }
+
     </style>
 </head>
 <body>
@@ -323,7 +388,11 @@
             <div class="row justify-content-center">
                 <!-- Project 1 -->
                 <div class="col-md-8">
-                    <div class="project-box mx-auto" data-bs-toggle="modal" data-bs-target="#projectModal" data-title="Multilane BERT Product line" data-description="This is a description of Project 1." data-video="media/videos/BERT_video.mp4">
+                    <div class="project-box mx-auto" data-bs-toggle="modal" data-bs-target="#projectModal"
+                        data-title="Multilane BERT Product line"
+                        data-description="This is a description of Project 1."
+                        data-video="media/videos/BERT_video.mp4"
+                        data-images='["media/images/BERT_img1.png", "media/images/BERT_img2.png", "media/images/BERT_img3.png", "media/images/BERT_img4.png"]'>
                         <div class="content">
                             <h3>Multilane BERT Product line</h3>
                             <p>Description of project 1.</p>
@@ -342,269 +411,424 @@
                         <video src="media/videos/Temperature_Chamber.mp4" muted loop></video>
                     </div>
                 </div>
-            <!-- Project 3 -->
-            <div class="col-md-8">
-                <div class="project-box mx-auto" data-bs-toggle="modal" data-bs-target="#projectModal" data-title="DesignCon Booth" data-description="This is a description of Project 3." data-video="media/videos/DeisgnCon-Booth.mp4">
-                    <div class="content">
-                        <h3>DesignCon Booth</h3>
-                        <p>Description of project 3.</p>
-                    </div>
-                    <video src="media/videos/DeisgnCon-Booth.mp4" muted loop></video>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Get in Touch Section -->
-    <section id="contact" class="text-center">
-        <div class="row justify-content-center">
-            <h2 class="col-12 text-center mb-5">Get in Touch</h2>
-            <div class="col-lg-3 col-md-8 mb-2">
-                <p class="col-lg-3 col-md-8 m-0 w-100 align-middle">Feel free to reach out to me at: </p>
-            </div>
-            <div class="col-lg-3 col-md-8 mb-2">
-                <a class="email-link" href="mailto:arzabourached@gmail.com">arzabourached@gmail.com</a>
-            </div>
-
-            <!-- Social Media Icons -->
-            <div class="social-icons text-center">
-                <a href="https://www.instagram.com/arz.ar" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/arz-abou-rached" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <!-- <a href="https://www.behance.net" target="_blank"><i class="fab fa-behance"></i></a> -->
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- Scroll to Top Button -->
-<button id="scrollToTop"><i class="fas fa-arrow-up"></i></button>
-
-<!-- Modal for Project Details -->
-<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="projectModalLabel"></h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Video Section (Left Column) -->
-                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
-                        <video controls class="modal-video"></video>
-                    </div>
-                    <!-- Description Section (Right Column) -->
-                    <div class="col-md-6 col-sm-12 d-flex align-items-center">
-                        <p id="projectDescription"></p>
+                <!-- Project 3 -->
+                <div class="col-md-8">
+                    <div class="project-box mx-auto" data-bs-toggle="modal" data-bs-target="#projectModal" data-title="DesignCon Booth" data-description="This is a description of Project 3." data-video="media/videos/DeisgnCon-Booth.mp4">
+                        <div class="content">
+                            <h3>DesignCon Booth</h3>
+                            <p>Description of project 3.</p>
+                        </div>
+                        <video src="media/videos/DeisgnCon-Booth.mp4" muted loop></video>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Get in Touch Section -->
+        <section id="contact" class="text-center">
+            <div class="row justify-content-center">
+                <h2 class="col-12 text-center mb-5">Get in Touch</h2>
+                <div class="col-lg-3 col-md-8 mb-2">
+                    <p class="col-lg-3 col-md-8 m-0 w-100 align-middle">Feel free to reach out to me at: </p>
+                </div>
+                <div class="col-lg-3 col-md-8 mb-2">
+                    <a class="email-link" href="mailto:arzabourached@gmail.com">arzabourached@gmail.com</a>
+                </div>
+
+                <!-- Social Media Icons -->
+                <div class="social-icons text-center">
+                    <a href="https://www.instagram.com/arz.ar" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/arz-abou-rached" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </section>
     </div>
-</div>
-<!-- Footer Section -->
-<footer class="text-center py-3 px-5 mb-4 mx-2">
-    <p>&copy; 2024 Arz Abou Rached. Developed by yours truly.</p>
-</footer>
 
-<!-- Include Bootstrap JS and Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop"><i class="fas fa-arrow-up"></i></button>
 
-<script>
-    // Define initial colors for light mode
-    let cubeColor = 0x000000; // Black for light mode
-    let sphereColor = 0x000000; // Black for light mode
-    let darkMode = false; // Light mode by default
+    <!-- Modal for Project Details -->
+    <div
+      class="modal fade"
+      id="projectModal"
+      tabindex="-1"
+      aria-labelledby="projectModalLabel"
+      aria-hidden="true"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header gx-4">
+            <h2 class="modal-title" id="projectModalLabel"></h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="btn-close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <!-- Video and Description Section -->
+              <div class="row mb-5">
+                <!-- Video Section -->
+                <div class="col-md-6 col-sm-12 d-flex justify-content-center">
+                  <video controls class="modal-video"></video>
+                </div>
+                <!-- Description Section -->
+                <div class="col-md-6 col-sm-12">
+                  <p id="projectDescription"></p>
+                </div>
+              </div>
+              <!-- Images Section -->
+              <h3 class="mb-4">Project Images</h3>
+              <div id="projectImages" class="row gy-4">
+                <!-- Images will be injected here -->
+              </div>
+            </div>
+            <!-- Carousel Overlay -->
+            <div
+              id="imageCarousel"
+              class="carousel slide"
+              data-bs-ride="carousel"
+              style="display: none;"
+            >
+              <div class="carousel-inner" id="carouselInner">
+                <!-- Slides will be injected here -->
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#imageCarousel"
+                data-bs-slide="prev"
+              >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#imageCarousel"
+                data-bs-slide="next"
+              >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+              <!-- Close Button -->
+              <button
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+                id="carouselClose"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    // Play video on hover
-    document.querySelectorAll('.project-box').forEach(box => {
-        const video = box.querySelector('video');
-        
-        box.addEventListener('mouseenter', () => {
-            video.play();  // Play video on hover
+    <!-- Footer Section -->
+    <footer class="text-center py-3 px-5 mb-4 mx-2">
+        <p>&copy; 2024 Arz Abou Rached. Developed by yours truly.</p>
+    </footer>
+
+    <!-- Include Bootstrap JS and Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include your JavaScript code here -->
+    <script>
+        // Define initial colors for light mode
+        let cubeColor = 0x000000; // Black for light mode
+        let sphereColor = 0x000000; // Black for light mode
+        let darkMode = false; // Light mode by default
+
+        // Variable to track if the carousel is open
+        let isCarouselOpen = false;
+
+        // Play video on hover
+        document.querySelectorAll('.project-box').forEach(box => {
+            const video = box.querySelector('video');
+            
+            box.addEventListener('mouseenter', () => {
+                video.play();  // Play video on hover
+            });
+
+            box.addEventListener('mouseleave', () => {
+                video.pause();  // Pause video when hover ends
+                video.currentTime = 0;  // Reset video to start
+            });
         });
 
-        box.addEventListener('mouseleave', () => {
-            video.pause();  // Pause video when hover ends
-            video.currentTime = 0;  // Reset video to start
+        // Setup the project modal
+        const projectModal = document.getElementById('projectModal');
+        const btnClose = document.getElementById('btn-close');
+        const btnCloseCarousel = document.getElementById('carouselClose');
+
+        projectModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const title = button.getAttribute('data-title');
+            const description = button.getAttribute('data-description');
+            const videoSrc = button.getAttribute('data-video');
+            const imagesData = button.getAttribute('data-images');
+
+            // Update the modal's content
+            const modalTitle = projectModal.querySelector('.modal-title');
+            const modalVideo = projectModal.querySelector('video');
+            const modalDescription = projectModal.querySelector('#projectDescription');
+            const imagesContainer = projectModal.querySelector('#projectImages');
+            const carouselInner = projectModal.querySelector('#carouselInner');
+
+            modalTitle.textContent = title;
+            modalVideo.src = videoSrc;
+            modalVideo.play();
+            modalDescription.textContent = description;
+
+            // Clear previous images and carousel items
+            imagesContainer.innerHTML = '';
+            carouselInner.innerHTML = '';
+
+            // Populate images if imagesData exists
+            if (imagesData) {
+                let imagesArray = [];
+                try {
+                    imagesArray = JSON.parse(imagesData);
+                } catch (error) {
+                    console.error('Error parsing images data:', error);
+                }
+
+                imagesArray.forEach((imageSrc, index) => {
+                    // Create image thumbnail in the images section
+                    const colDiv = document.createElement('div');
+                    colDiv.classList.add('col-md-4', 'col-sm-6');
+
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    img.alt = title;
+                    img.classList.add('img-fluid', 'rounded', 'modal-image');
+                    img.style.cursor = 'pointer';
+                    img.dataset.index = index; // Store index for carousel
+
+                    // Add click event to open carousel
+                    img.addEventListener('click', function () {
+                        showCarouselAtIndex(index);
+                    });
+
+                    colDiv.appendChild(img);
+                    imagesContainer.appendChild(colDiv);
+
+                    // Create corresponding carousel item
+                    const carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+                    if (index === 0) {
+                        carouselItem.classList.add('active');
+                    }
+
+                    const carouselImg = document.createElement('img');
+                    carouselImg.src = imageSrc;
+                    carouselImg.classList.add('d-block', 'w-100');
+                    carouselImg.alt = title;
+
+                    carouselItem.appendChild(carouselImg);
+                    carouselInner.appendChild(carouselItem);
+                });
+            }
+
+            // Push a new history state when the modal opens
+            history.pushState(null, null, window.location.href);
         });
-    });
 
-    // Setup the project modal
-    const projectModal = document.getElementById('projectModal');
-    const btnClose = document.getElementById('btn-close');
-    projectModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget; // Button that triggered the modal
-        const title = button.getAttribute('data-title'); // Extract info from data-* attributes
-        const description = button.getAttribute('data-description');
-        const videoSrc = button.getAttribute('data-video');
+        // Function to show carousel at specific index
+        function showCarouselAtIndex(index) {
+            const imageCarousel = document.getElementById('imageCarousel');
+            const bsCarousel = new bootstrap.Carousel(imageCarousel);
 
-        // Update the modal's content
-        const modalTitle = projectModal.querySelector('.modal-title');
-        const modalVideo = projectModal.querySelector('video');
-        const modalDescription = projectModal.querySelector('#projectDescription');
+            // Show the carousel
+            imageCarousel.style.display = 'block';
 
-        modalTitle.textContent = title;
-        modalVideo.src = videoSrc;
-        modalVideo.play(); // Autoplay the video when modal opens
-        modalDescription.textContent = description;
+            // Move to the selected slide
+            bsCarousel.to(index);
 
+            isCarouselOpen = true;
 
-        // Push a new history state when the modal opens
-        history.pushState(null, null, window.location.href);
-    });
-
-    projectModal.addEventListener('hide.bs.modal', function () {
-        const modalVideo = projectModal.querySelector('video');
-        modalVideo.pause(); // Stop video when modal is closed
-        modalVideo.currentTime = 0; // Reset video to the start
-    });
-
-    // Handle the back button on mobile to close the modal
-    window.addEventListener('popstate', function () {
-        const modalElement = bootstrap.Modal.getInstance(projectModal);
-        if (modalElement) {
-            modalElement.hide(); // Close the modal
-        }
-    });
-
-    // Scroll to top button functionality
-    // const scrollToTopBtn = document.getElementById('scrollToTop');
-    // window.addEventListener('scroll', function() {
-    //     if (window.scrollY > 300) {
-    //         scrollToTopBtn.style.display = 'block';  // Show button
-    //     } else {
-    //         scrollToTopBtn.style.display = 'none';   // Hide button
-    //     }
-    // });
-
-    
-    // Hide the toggle button on scroll
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            scrollToTopBtn.classList.add('showing');
-        } else {
-            scrollToTopBtn.classList.remove('showing');
-        }
-    });
-
-    scrollToTopBtn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });  // Scroll to top
-    });
-
-    // Setup light/dark mode toggle
-    const modeToggle = document.getElementById('modeToggle');
-
-    modeToggle.addEventListener('click', function() {
-        darkMode = !darkMode;
-        document.body.classList.toggle('dark-mode', darkMode);
-
-        // Update canvas colors based on mode
-        if (darkMode) {
-            cube.material.color.set(0xffffff); // White cube for dark mode
-            sphere.material.color.set(0xffffff); // White sphere for dark mode
-            modeToggle.textContent = "Light Mode"; // Change button text
-            btnClose.classList.add('btn-close-white');
-        } else {
-            cube.material.color.set(0x000000); // Black cube for light mode
-            sphere.material.color.set(0x000000); // Black sphere for light mode
-            modeToggle.textContent = "Dark Mode"; // Change button text
-            btnClose.classList.remove('btn-close-white');
-        }
-    });
-
-    // Hide the toggle button on scroll
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            modeToggle.classList.add('hidden');
-        } else {
-            modeToggle.classList.remove('hidden');
-        }
-    });
-
-    // Setup scene, camera, and renderer for 3D background
-    const scene = new THREE.Scene();
-    const aspect = window.innerWidth / window.innerHeight;
-    const camera = new THREE.OrthographicCamera(-aspect * 5, aspect * 5, 5, -5, 0.1, 1000); // Orthographic Camera
-
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Create a 3D cube
-    const cubeGeometry = new THREE.BoxGeometry();
-    const cubeMaterial = new THREE.MeshBasicMaterial({ color: cubeColor, wireframe: true });
-    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    scene.add(cube);
-
-    // Create a wireframe sphere (ball)
-    const sphereGeometry = new THREE.SphereGeometry(2, 10, 10);
-    const sphereMaterial = new THREE.MeshBasicMaterial({ color: sphereColor, wireframe: true });
-    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    scene.add(sphere);
-
-    // Set the cube's position to the center of the canvas (origin)
-    cube.position.set(0, -1.5, 0);
-
-    camera.position.z = 10; // Adjust for Orthographic camera depth
-
-    let sphereVelocity = { x: 0.02, y: 0.02 };
-
-    // Animation function for bouncing sphere
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Rotate cube
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-
-        // Move sphere and bounce
-        sphere.position.x += sphereVelocity.x;
-        sphere.position.y += sphereVelocity.y;
-
-        // Add rotation to the sphere to simulate bouncing/rolling effect
-        sphere.rotation.x += 0.01; // Rotate sphere on X-axis
-        sphere.rotation.y += 0.01; // Rotate sphere on Y-axis
-
-        const canvasBounds = {
-            width: 5 * aspect,  // Adjust for orthographic camera bounds
-            height: 5
-        };
-
-        if (sphere.position.x > canvasBounds.width || sphere.position.x < -canvasBounds.width) {
-            sphereVelocity.x = -sphereVelocity.x;
-        }
-        if (sphere.position.y > canvasBounds.height || sphere.position.y < -canvasBounds.height) {
-            sphereVelocity.y = -sphereVelocity.y;
+            // Push a new history state when the carousel opens
+            history.pushState({ carouselOpen: true }, null, window.location.href);
         }
 
-        renderer.render(scene, camera);
-    }
+        // Function to close the carousel
+        function closeCarousel() {
+            const imageCarousel = document.getElementById('imageCarousel');
+            imageCarousel.style.display = 'none';
+            isCarouselOpen = false;
+        }
 
-    // Update objects' rotation on scroll
-    window.addEventListener('scroll', function() {
-        const scrollY = window.scrollY;
+        // Close carousel when the close button is clicked
+        const carouselClose = document.getElementById('carouselClose');
+        carouselClose.addEventListener('click', function () {
+            closeCarousel();
+        });
 
-        cube.rotation.y = scrollY * 0.01;
-    });
+        // Handle the back button to close the carousel if open, else close modal
+        window.addEventListener('popstate', function (event) {
+            const modalElement = bootstrap.Modal.getInstance(projectModal);
+            if (isCarouselOpen) {
+                closeCarousel();
+            } else if (modalElement) {
+                modalElement.hide();
+            }
+        });
 
-    animate();
+        // Handle the Escape key to close the carousel or modal
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                event.preventDefault(); // Prevent default behavior
+                if (isCarouselOpen) {
+                    closeCarousel();
+                } else {
+                    const modalElement = bootstrap.Modal.getInstance(projectModal);
+                    if (modalElement) {
+                        modalElement.hide();
+                    }
+                }
+            }
+        });
 
-    // Handle window resize to maintain aspect ratio and bounds
-    window.addEventListener('resize', () => {
+        projectModal.addEventListener('hide.bs.modal', function () {
+            const modalVideo = projectModal.querySelector('video');
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+
+            // Hide the carousel if it's open
+            closeCarousel();
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('showing');
+            } else {
+                scrollToTopBtn.classList.remove('showing');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });  // Scroll to top
+        });
+
+        // Setup light/dark mode toggle
+        const modeToggle = document.getElementById('modeToggle');
+
+        modeToggle.addEventListener('click', function() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode', darkMode);
+
+            // Update canvas colors based on mode
+            if (darkMode) {
+                cube.material.color.set(0xffffff); // White cube for dark mode
+                sphere.material.color.set(0xffffff); // White sphere for dark mode
+                modeToggle.textContent = "Light Mode"; // Change button text
+                btnClose.classList.add('btn-close-white');
+                btnCloseCarousel.classList.add('btn-close-white');
+            } else {
+                cube.material.color.set(0x000000); // Black cube for light mode
+                sphere.material.color.set(0x000000); // Black sphere for light mode
+                modeToggle.textContent = "Dark Mode"; // Change button text
+                btnClose.classList.remove('btn-close-white');
+                btnCloseCarousel.classList.remove('btn-close-white');
+            }
+        });
+
+        // Hide the toggle button on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                modeToggle.classList.add('hidden');
+            } else {
+                modeToggle.classList.remove('hidden');
+            }
+        });
+
+        // Setup scene, camera, and renderer for 3D background
+        const scene = new THREE.Scene();
         const aspect = window.innerWidth / window.innerHeight;
-        camera.left = -aspect * 5;
-        camera.right = aspect * 5;
-        camera.top = 5;
-        camera.bottom = -5;
-        camera.updateProjectionMatrix();
+        const camera = new THREE.OrthographicCamera(-aspect * 5, aspect * 5, 5, -5, 0.1, 1000); // Orthographic Camera
+
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+        document.body.appendChild(renderer.domElement);
 
-</script>
+        // Create a 3D cube
+        const cubeGeometry = new THREE.BoxGeometry();
+        const cubeMaterial = new THREE.MeshBasicMaterial({ color: cubeColor, wireframe: true });
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        scene.add(cube);
 
+        // Create a wireframe sphere (ball)
+        const sphereGeometry = new THREE.SphereGeometry(2, 10, 10);
+        const sphereMaterial = new THREE.MeshBasicMaterial({ color: sphereColor, wireframe: true });
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        scene.add(sphere);
 
+        // Set the cube's position to the center of the canvas (origin)
+        cube.position.set(0, -1.5, 0);
+
+        camera.position.z = 10; // Adjust for Orthographic camera depth
+
+        let sphereVelocity = { x: 0.02, y: 0.02 };
+
+        // Animation function for bouncing sphere
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate cube
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Move sphere and bounce
+            sphere.position.x += sphereVelocity.x;
+            sphere.position.y += sphereVelocity.y;
+
+            // Add rotation to the sphere to simulate bouncing/rolling effect
+            sphere.rotation.x += 0.01; // Rotate sphere on X-axis
+            sphere.rotation.y += 0.01; // Rotate sphere on Y-axis
+
+            const canvasBounds = {
+                width: 5 * aspect,  // Adjust for orthographic camera bounds
+                height: 5
+            };
+
+            if (sphere.position.x > canvasBounds.width || sphere.position.x < -canvasBounds.width) {
+                sphereVelocity.x = -sphereVelocity.x;
+            }
+            if (sphere.position.y > canvasBounds.height || sphere.position.y < -canvasBounds.height) {
+                sphereVelocity.y = -sphereVelocity.y;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Update objects' rotation on scroll
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+
+            cube.rotation.y = scrollY * 0.01;
+        });
+
+        animate();
+
+        // Handle window resize to maintain aspect ratio and bounds
+        window.addEventListener('resize', () => {
+            const aspect = window.innerWidth / window.innerHeight;
+            camera.left = -aspect * 5;
+            camera.right = aspect * 5;
+            camera.top = 5;
+            camera.bottom = -5;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
 </body>
 </html>
