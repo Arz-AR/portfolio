@@ -604,37 +604,41 @@
         .then(projects => {
             const projectsContainer = document.querySelector('#projects .row'); // Adjust selector as needed
             projects.forEach(project => {
-                // Create the column div
-                const colDiv = document.createElement('div');
-                colDiv.classList.add('col-md-8');
-                
-                // Create the project box div with the required data attributes for the modal
-                const projectBox = document.createElement('div');
-                projectBox.classList.add('project-box', 'mx-auto');
-                projectBox.setAttribute('data-bs-toggle', 'modal');
-                projectBox.setAttribute('data-bs-target', '#projectModal');
-                projectBox.setAttribute('data-title', project.title);
-                projectBox.setAttribute('data-description', project.description);
-                projectBox.setAttribute('data-video', project.video);
-                
-                // If the project has images, set the data-images attribute with a JSON string
-                if (project.images) {
-                    projectBox.setAttribute('data-images', JSON.stringify(project.images));
-                }
-                
-                // Set the inner HTML for the project box (content and video)
-                projectBox.innerHTML = `
-                    <div class="content px-5">
-                    <h3>${project.title}</h3>
-                    <p class="descr mt-2">${project.shortDescription}</p>
-                    <p class="mt-3">(Press for more)</p>
-                    </div>
-                    <video src="${project.video}" loop></video>
-                `;
-                
-                // Append the project box to the column and then the column to the container
-                colDiv.appendChild(projectBox);
-                projectsContainer.appendChild(colDiv);
+            // Create the column div
+            const colDiv = document.createElement('div');
+            colDiv.classList.add('col-md-8');
+            
+            // Create the project box div with the required data attributes for the modal
+            const projectBox = document.createElement('div');
+            projectBox.classList.add('project-box', 'mx-auto');
+            projectBox.setAttribute('data-bs-toggle', 'modal');
+            projectBox.setAttribute('data-bs-target', '#projectModal');
+            projectBox.setAttribute('data-title', project.title);
+            projectBox.setAttribute('data-description', project.description);
+            projectBox.setAttribute('data-video', project.video);
+            
+            // If the project has an images folder, set data-imagesfolder and data-imagecount attributes
+            if (project.imagesFolder) {
+                projectBox.setAttribute('data-imagesfolder', project.imagesFolder);
+                projectBox.setAttribute('data-imagecount', project.imageCount);
+            } else if (project.images) {
+                // Otherwise, set the data-images attribute with a JSON string of images array
+                projectBox.setAttribute('data-images', JSON.stringify(project.images));
+            }
+            
+            // Set the inner HTML for the project box (content and video)
+            projectBox.innerHTML = `
+                <div class="content px-5">
+                <h3>${project.title}</h3>
+                <p class="descr mt-2">${project.shortDescription}</p>
+                <p class="mt-3">(Press for more)</p>
+                </div>
+                <video src="${project.video}" loop></video>
+            `;
+            
+            // Append the project box to the column and then the column to the container
+            colDiv.appendChild(projectBox);
+            projectsContainer.appendChild(colDiv);
             });
         })
         .catch(error => console.error('Error fetching projects:', error));
@@ -657,17 +661,20 @@
 
         // Setup the project modal
         const projectModal = document.getElementById('projectModal');
-        const btnClose = document.getElementById('btn-close');
-        const btnCloseCarousel = document.getElementById('carouselClose');
-
         projectModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const title = button.getAttribute('data-title');
             const description = button.getAttribute('data-description');
             const videoSrc = button.getAttribute('data-video');
+            
+            // Get images folder and count, if provided
+            const imagesFolder = button.getAttribute('data-imagesfolder');
+            const imageCount = button.getAttribute('data-imagecount');
+            
+            // Alternatively, if an images array is provided
             const imagesData = button.getAttribute('data-images');
 
-            // Update the modal's content
+            // Update the modal's content elements
             const modalTitle = projectModal.querySelector('.modal-title');
             const modalVideo = projectModal.querySelector('video');
             const modalDescription = projectModal.querySelector('#projectDescription');
@@ -683,15 +690,25 @@
             imagesContainer.innerHTML = '';
             carouselInner.innerHTML = '';
 
-            // Populate images if imagesData exists
-            if (imagesData) {
-                let imagesArray = [];
+            let imagesArray = [];
+
+            if (imagesFolder && imageCount) {
+                // Extract the folder name from the imagesFolder path (e.g., "MultilaneBERT")
+                const folderName = imagesFolder.split('/').pop();
+                for (let i = 1; i <= parseInt(imageCount, 10); i++) {
+                    // Use the folder name with an underscore and the image number
+                    imagesArray.push(`${imagesFolder}/${folderName}_${i}.jpg`);
+                }
+            } else if (imagesData) {
                 try {
                     imagesArray = JSON.parse(imagesData);
                 } catch (error) {
                     console.error('Error parsing images data:', error);
                 }
+            }
 
+            // Populate images in the modal if imagesArray has any images
+            if (imagesArray.length > 0) {
                 imagesArray.forEach((imageSrc, index) => {
                     // Create image thumbnail in the images section
                     const colDiv = document.createElement('div');
@@ -702,9 +719,9 @@
                     img.alt = title;
                     img.classList.add('img-fluid', 'rounded', 'modal-image');
                     img.style.cursor = 'pointer';
-                    img.dataset.index = index; // Store index for carousel
+                    img.dataset.index = index; // Store index for carousel functionality
 
-                    // Add click event to open carousel
+                    // Add click event to open the carousel at the selected index
                     img.addEventListener('click', function () {
                         showCarouselAtIndex(index);
                     });
@@ -732,6 +749,8 @@
             // Push a new history state when the modal opens
             history.pushState(null, null, window.location.href);
         });
+
+
 
         // Function to show carousel at specific index
         function showCarouselAtIndex(index) {
