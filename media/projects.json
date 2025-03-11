@@ -4,7 +4,7 @@
         "description": "Using 3DS Max and Vray, coupled with a custom made materials library compiled in Connecter, I built my first 3D environment for Multilane. Using After Effects to blend in 2.5D Callouts with motion tracking, the aim was to showcase the multitude of products in the Bit Error Rate Tester line and their various features. Compiled and mastered in Premiere Pro, a fitting background track and the voice overs were introduced. Sfx were also applied to accompany the dynamic elements, including the metal doors and the popping of the callouts.",
         "shortDescription": "A tech-centric video made from the ground up in 3DS Max with Vray, After Effects and Premiere Pro",
         "video": "media/videos/BERT_video.mp4",
-        "imagesFolder": "media/images/MultilaneBERT",
+        "imagesFolder": "media/images/ML_BERT",
         "imageCount": 4
     },
     {
@@ -12,7 +12,7 @@
         "description": "An elegant reveal of a top-of-the-line product built and animated in 3DS Max with Vray, and composed in Premiere Pro",
         "shortDescription": "An elegant reveal of a top-of-the-line product built and animated in 3DS Max with Vray, and composed in Premiere Pro",
         "video": "media/videos/MWTP_MW7004F-L_Reveal.mp4",
-        "imagesFolder": "media/images/MWTP_MW7004F-L_Reveal",
+        "imagesFolder": "media/images/ML_MW7004FL_Reveal",
         "imageCount": 1
     },
     {
