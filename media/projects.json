@@ -1,5 +1,13 @@
 [
     {
+        "title": "Award Winning Anouncement",
+        "description": "Using 3DS Max for modeling and animation, Vray for the materials and lighting, and PhoenixFD for the smoke dynamics and physics, led to this feature-filled short video being born. Post editing was done in After Effects, where Optical flares were put to elevate the experience. Finally, it was mastered in Premiere Pro where the disruptive-sounding soundtrack and the intricate SFX were crafted to reflect the groundbreaking nature of this revolutionary product.",
+        "shortDescription": "A groundbreaking animation featuring intricate sound and lighting, in addition to fluid dynamics",
+        "video": "media/videos/MWTP_MW7004F-L_NeoFog.mp4",
+        "imagesFolder": "media/imagesML_MW7004FL_NeoFog",
+        "imageCount": 5
+    },
+    {
         "title": "Multilane BERT Product line",
         "description": "Using 3DS Max and Vray, coupled with a custom made materials library compiled in Connecter, I built my first 3D environment for Multilane. Using After Effects to blend in 2.5D Callouts with motion tracking, the aim was to showcase the multitude of products in the Bit Error Rate Tester line and their various features. Compiled and mastered in Premiere Pro, a fitting background track and the voice overs were introduced. Sfx were also applied to accompany the dynamic elements, including the metal doors and the popping of the callouts.",
         "shortDescription": "A tech-centric video made from the ground up in 3DS Max with Vray, After Effects and Premiere Pro",
