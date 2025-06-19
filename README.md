@@ -1,4 +1,9 @@
-# Portfolio Website
+# Portfolio
 
-This repository contains the source code for the personal portfolio of Arz Abou Rached. It is a static website that showcases multimedia projects and leverages Bootstrap and Three.js for a dynamic experience.
+This repository hosts my personal portfolio site built with standard HTML, CSS, and JavaScript.
 
+## Preview locally
+Open `index.html` in your browser to preview the site on your machine.
+
+## Project data
+Project information is stored in `media/projects.json`.
