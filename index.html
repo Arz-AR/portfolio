@@ -707,10 +707,15 @@
             let imagesArray = [];
 
             if (imagesFolder && imageCount) {
-                // Extract the folder name from the imagesFolder path (e.g., "MultilaneBERT")
-                const folderName = imagesFolder.split('/').pop();
+                // Determine the base name for images. If the images are stored
+                // in a subfolder like "project-imgs", use the parent folder's
+                // name for constructing the file names.
+                const folderSegments = imagesFolder.split('/');
+                let folderName = folderSegments[folderSegments.length - 1];
+                if (folderName === 'project-imgs' && folderSegments.length > 1) {
+                    folderName = folderSegments[folderSegments.length - 2];
+                }
                 for (let i = 1; i <= parseInt(imageCount, 10); i++) {
-                    // Use the folder name with an underscore and the image number
                     imagesArray.push(`${imagesFolder}/${folderName}_${i}.jpg`);
                 }
             } else if (imagesData) {
