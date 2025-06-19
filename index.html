@@ -601,6 +601,9 @@
         // Variable to track if the carousel is open
         let isCarouselOpen = false;
 
+        const btnClose = document.getElementById('btn-close');
+        const btnCloseCarousel = document.getElementById('carouselClose');
+
 
         //Dynamic fetching of projects
         fetch('media/projects.json')
@@ -786,8 +789,6 @@
         }
 
         // Close carousel when the close button is clicked
-        const btnClose = document.getElementById('btn-close');
-        const btnCloseCarousel = document.getElementById('carouselClose');
         btnCloseCarousel.addEventListener('click', function () {
             closeCarousel();
         });
