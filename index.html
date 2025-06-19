@@ -786,8 +786,9 @@
         }
 
         // Close carousel when the close button is clicked
-        const carouselClose = document.getElementById('carouselClose');
-        carouselClose.addEventListener('click', function () {
+        const btnClose = document.getElementById('btn-close');
+        const btnCloseCarousel = document.getElementById('carouselClose');
+        btnCloseCarousel.addEventListener('click', function () {
             closeCarousel();
         });
 
