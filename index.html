@@ -32,6 +32,14 @@
     <meta name="twitter:image" content="https://arz-ar.github.io/portfolio/media/images/Portfolio-Image.jpg">
 
     <title>Arz Abou Rached - Multimedia Engineer &amp; 3D Artist Portfolio</title>
+        <!-- Modern browsers (SVG with PNG payload) -->
+    <link rel="icon" type="image/svg+xml" href="/media/favicons/cube_circle.svg">
+
+    <!-- Fallback for legacy/Windows -->
+    <link rel="icon" href="/media/favicons/cube_circle.ico" sizes="any">
+
+    <!-- Apple / iOS home-screen icon -->
+    <link rel="apple-touch-icon" href="/media/favicons/cube_circle-180x180.png">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -586,7 +594,7 @@
 
     <!-- Footer Section -->
     <footer class="text-center py-3 px-5 mb-4 mx-2">
-        <p>&copy; 2024 Arz Abou Rached. Developed by yours truly.</p>
+        <p>&copy; 2025 Arz Abou Rached. Developed by yours truly.</p>
     </footer>
 
     <!-- Include Bootstrap JS and Three.js -->
@@ -903,7 +911,7 @@
         scene.add(sphere);
 
         // Set the cube's position to the center of the canvas (origin)
-        cube.position.set(0, -1.5, 0);
+        cube.position.set(0, -1, 0);
 
         camera.position.z = 10; // Adjust for Orthographic camera depth
 
