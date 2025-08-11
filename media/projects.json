@@ -6,6 +6,12 @@
         "video": "media/videos/Full 224G Fixture ML4067 small.mp4"
     },
     {
+        "title": "CODENAME:THOR Teaser",
+        "description": "This short - and highly technical - teaser presents effects made inside 3DS Max using TyFlow for the particle physics used for lightning and PhoenixFD for the clouds and smoke simulation. A fitting soundtrack was curated to fully convey the vibe of the video, while injecting key SFX elements to sell the ambience.",
+        "shortDescription": "A short teaser featuring particle physics, a smoke simulation, and the smoothest transition one could ever witness.",
+        "video": "media/videos/MWTP_BERT_Thor_v1.1 Prod1.mp4"
+    },
+    {
         "title": "Award Winning Announcement",
         "description": "Using 3DS Max for modeling and animation, Vray for the materials and lighting, and PhoenixFD for the smoke dynamics and physics, led to this feature-filled short video being born. Post editing was done in After Effects, where Optical flares were put to elevate the experience. Finally, it was mastered in Premiere Pro where the disruptive-sounding soundtrack and the intricate SFX were crafted to reflect the groundbreaking nature of this revolutionary product.",
         "shortDescription": "A groundbreaking animation featuring intricate sound and lighting, in addition to fluid dynamics",
@@ -56,4 +62,3 @@
         "video": "media/videos/bloca-compressed-v2.0.mp4"
     }
 ]
-  
