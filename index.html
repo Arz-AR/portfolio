@@ -133,20 +133,21 @@
             margin-bottom: 1.5rem;
         }
 
+        #projects .col-md-8 {
+            perspective: 1000px;
+        }
+
         .project-box {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
             border: 2px solid var(--border-color);
             border-radius: 10px;
             margin: 20px 0;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.2s ease, border-color 0.3s ease;
             overflow: hidden;
             background-color: var(--bg-color-box);
             cursor: pointer;
-        }
-
-        .project-box:hover {
-            transform: scale(1.05);
+            transform-style: preserve-3d;
         }
 
         .project-box .content {
@@ -163,14 +164,27 @@
             text-align: center;
             padding: 20px;
             background: var(--bg-color-box);
+            transform: translateZ(30px);
+            transform-style: preserve-3d;
+        }
+
+        .project-box .content h3,
+        .project-box .content p {
+            transform-style: preserve-3d;
+            text-shadow:
+                1px 1px 2px rgba(255, 255, 255, 0.6),
+                2px 2px 4px rgba(255, 255, 255, 0.4),
+                3px 3px 6px rgba(255, 255, 255, 0.2);
         }
 
         .project-box .content h3 {
             font-size: clamp(1.25rem, 3.5vw, 2rem);
+            transform: translateZ(40px);
         }
 
         .project-box .content p {
             font-size: clamp(1rem, 2.5vw, 1.25rem);
+            transform: translateZ(35px);
         }
 
         /* Preview on hover removed */
@@ -636,7 +650,21 @@
                 <p class="mt-3">(Press for more)</p>
                 </div>
             `;
-            
+
+            // 3D tilt effect
+            projectBox.style.transition = 'transform 0.2s ease';
+            projectBox.addEventListener('mousemove', (e) => {
+                const rect = projectBox.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 15;
+                const rotateX = ((rect.height / 2 - y) / (rect.height / 2)) * 15;
+                projectBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+            projectBox.addEventListener('mouseleave', () => {
+                projectBox.style.transform = '';
+            });
+
             // Append the project box to the column and then the column to the container
             colDiv.appendChild(projectBox);
             projectsContainer.appendChild(colDiv);
