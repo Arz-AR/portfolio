@@ -3,19 +3,19 @@
         "title": "Announcing an Industry Defining Product",
         "description": "For this one, the mission was to go above and beyond. Using 3DS Max for modeling and animation, Vray for the materials and lighting, PhoenixFD for the smoke dynamics and physics, with After Effects for the post-rendering effects. Compiled in Premiere Pro where all the SFX magic was done, blending visual progress and sound cues to reflect the progression of the video.",
         "shortDescription": "A technical showcase with emotional resonance — where every pixel, light beam, and sound cue speaks to the watcher",
-        "video": "media/videos/Full 224G Fixture ML4067 small.mp4"
+        "video": "https://www.youtube.com/embed/VIDEO_ID"
     },
     {
         "title": "CODENAME:THOR Teaser",
         "description": "This short - and highly technical - teaser presents effects made inside 3DS Max using TyFlow for the particle physics used for lightning and PhoenixFD for the clouds and smoke simulation. A fitting soundtrack was curated to fully convey the vibe of the video, while injecting key SFX elements to sell the ambience.",
         "shortDescription": "A short teaser featuring particle physics, a smoke simulation, and the smoothest transition one could ever witness.",
-        "video": "media/videos/MWTP_BERT_Thor_v1.1 Prod1.mp4"
+        "video": "https://www.youtube.com/embed/VIDEO_ID"
     },
     {
         "title": "Award Winning Announcement",
         "description": "Using 3DS Max for modeling and animation, Vray for the materials and lighting, and PhoenixFD for the smoke dynamics and physics, led to this feature-filled short video being born. Post editing was done in After Effects, where Optical flares were put to elevate the experience. Finally, it was mastered in Premiere Pro where the disruptive-sounding soundtrack and the intricate SFX were crafted to reflect the groundbreaking nature of this revolutionary product.",
         "shortDescription": "A groundbreaking animation featuring intricate sound and lighting, in addition to fluid dynamics",
-        "video": "media/videos/MWTP_MW7004F-L_NeoFog.mp4",
+        "video": "https://www.youtube.com/embed/VIDEO_ID",
         "imagesFolder": "media/images/ML_MW7004FL_NeoFog/project-imgs",
         "imageCount": 5
     },
@@ -23,7 +23,7 @@
         "title": "Multilane BERT Product line",
         "description": "Using 3DS Max and Vray, coupled with a custom made materials library compiled in Connecter, I built my first 3D environment for Multilane. Using After Effects to blend in 2.5D Callouts with motion tracking, the aim was to showcase the multitude of products in the Bit Error Rate Tester line and their various features. Compiled and mastered in Premiere Pro, a fitting background track and the voice overs were introduced. Sfx were also applied to accompany the dynamic elements, including the metal doors and the popping of the callouts.",
         "shortDescription": "A tech-centric video made from the ground up in 3DS Max with Vray, After Effects and Premiere Pro",
-        "video": "media/videos/BERT_video.mp4",
+        "video": "https://www.youtube.com/embed/VIDEO_ID",
         "imagesFolder": "media/images/ML_BERT/project-imgs",
         "imageCount": 4
     },
@@ -31,7 +31,7 @@
         "title": "Product Unveil - ML7004-FL",
         "description": "An elegant reveal of a top-of-the-line product built and animated in 3DS Max with Vray, and composed in Premiere Pro",
         "shortDescription": "An elegant reveal of a top-of-the-line product built and animated in 3DS Max with Vray, and composed in Premiere Pro",
-        "video": "media/videos/MWTP_MW7004F-L_Reveal.mp4",
+        "video": "https://www.youtube.com/embed/VIDEO_ID",
         "imagesFolder": "media/images/ML_MW7004FL_Reveal/project-imgs",
         "imageCount": 1
     },
@@ -39,19 +39,19 @@
         "title": "Christmas 2024 at Multilane",
         "description": "A reproduction of the Multilane Campus in 3D, with a twist. Enjoy this animation made in 3DS Max using Vray and SnowPlus creating a very special snow globe.",
         "shortDescription": "A reproduction of the Multilane Campus in 3D, with a twist",
-        "video": "media/videos/Christmas2024_WA.mp4"
+        "video": "https://www.youtube.com/embed/VIDEO_ID"
     },
     {
         "title": "Christmas 2024 Backdrop",
         "description": "A custom made motion graphics backdrop video (initially 15 minutes long) for the 2024 Christmas gala dinner made in Illustrator and After Effects, also using the following plugins: Video Copilot's Optical Flares and Saber, Maxon's RG Trapcode",
         "shortDescription": "A custom motion graphics backdrop of the 2024 Christmas gala dinner",
-        "video": "media/videos/Christmas2024-Screen-Visual.mp4"
+        "video": "https://www.youtube.com/embed/VIDEO_ID"
     },
     {
         "title": "Switch Temperature Chamber",
         "description": "This scene was modeled from scratch in 3DS Max to showcase the switch racks in the two temperature chambers. The elements were crafted manually to mirror real life size, look, and feel",
         "shortDescription": "A 3D environment built from scratch in 3DS Max and Vray",
-        "video": "media/videos/Temperature_Chamber.mp4",
+        "video": "https://www.youtube.com/embed/VIDEO_ID",
         "imagesFolder": "media/images/ML_TempChamb/project-imgs",
         "imageCount": 3
     },
@@ -59,6 +59,6 @@
         "title": "Guest House Inauguration",
         "description": "An inauguration video for a newly finished guest house compiled and edited in Premiere Pro and After Effects.",
         "shortDescription": "An inauguration video for a newly finished guest house compiled and edited in Premiere Pro and After Effects",
-        "video": "media/videos/bloca-compressed-v2.0.mp4"
+        "video": "https://www.youtube.com/embed/VIDEO_ID"
     }
 ]

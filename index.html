@@ -174,7 +174,7 @@
             font-size: clamp(1rem, 2.5vw, 1.25rem);
         }
 
-        .project-box video {
+        .project-box .preview {
             position: absolute;
             top: 0;
             left: 0;
@@ -187,7 +187,7 @@
             z-index: 1;
         }
 
-        .project-box:hover video {
+        .project-box:hover .preview {
             opacity: 1;
             pointer-events: auto;
         }
@@ -538,7 +538,9 @@
               <div class="row mb-5">
                 <!-- Video Section -->
                 <div class="col-md-6 col-sm-12 d-flex justify-content-center">
-                  <video controls class="modal-video"></video>
+                  <div class="ratio ratio-16x9 w-100">
+                    <iframe class="modal-video" src="" title="Project video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
                 </div>
                 <!-- Description Section -->
                 <div class="col-md-6 col-sm-12 align-content-center">
@@ -648,14 +650,17 @@
                 projectBox.setAttribute('data-images', JSON.stringify(project.images));
             }
             
-            // Set the inner HTML for the project box (content and video)
+            const videoId = project.video.split('/').pop();
+            const thumbSrc = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+
+            // Set the inner HTML for the project box (content and thumbnail)
             projectBox.innerHTML = `
                 <div class="content px-5">
                 <h3>${project.title}</h3>
                 <p class="descr mt-2">${project.shortDescription}</p>
                 <p class="mt-3">(Press for more)</p>
                 </div>
-                <video src="${project.video}" loop></video>
+                <img src="${thumbSrc}" class="preview" alt="${project.title} thumbnail">
             `;
             
             // Append the project box to the column and then the column to the container
@@ -666,20 +671,6 @@
         .catch(error => console.error('Error fetching projects:', error));
 
 
-
-        // Play video on hover
-        document.querySelectorAll('.project-box').forEach(box => {
-            const video = box.querySelector('video');
-            
-            box.addEventListener('mouseenter', () => {
-                video.play();  // Play video on hover
-            });
-
-            box.addEventListener('mouseleave', () => {
-                video.pause();  // Pause video when hover ends
-                video.currentTime = 0;  // Reset video to start
-            });
-        });
 
         // Setup the project modal
         const projectModal = document.getElementById('projectModal');
@@ -698,14 +689,13 @@
 
             // Update the modal's content elements
             const modalTitle = projectModal.querySelector('.modal-title');
-            const modalVideo = projectModal.querySelector('video');
+            const modalVideo = projectModal.querySelector('iframe');
             const modalDescription = projectModal.querySelector('#projectDescription');
             const imagesContainer = projectModal.querySelector('#projectImages');
             const carouselInner = projectModal.querySelector('#carouselInner');
 
             modalTitle.textContent = title;
-            modalVideo.src = videoSrc;
-            modalVideo.play();
+            modalVideo.src = `${videoSrc}?autoplay=1`;
             modalDescription.textContent = description;
 
             // Clear previous images and carousel items
@@ -834,9 +824,8 @@
         });
 
         projectModal.addEventListener('hide.bs.modal', function () {
-            const modalVideo = projectModal.querySelector('video');
-            modalVideo.pause();
-            modalVideo.currentTime = 0;
+            const modalVideo = projectModal.querySelector('iframe');
+            modalVideo.src = '';
 
             // Hide the carousel if it's open
             closeCarousel();
