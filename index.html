@@ -602,10 +602,10 @@
         let loadedFont = null;
         function extrudeText(element, depth = 5) {
             const text = element.textContent.trim();
-            element.setAttribute('aria-label', text);
-            element.textContent = '';
             const width = element.clientWidth;
             const height = element.clientHeight;
+            element.setAttribute('aria-label', text);
+            element.textContent = '';
 
             const renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setSize(width, height);
