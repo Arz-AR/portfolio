@@ -6,6 +6,12 @@
         "video": "https://www.youtube.com/embed/CaAst77ZhnQ?si=jhsjn0DkOiP1wvSA"
     },
     {
+        "title": "Cinematic Presentation of a Product in Action",
+        "description": "A project I am most proud of. It consists of a blend of 3D modeling, look-dev, technical accuracy, particle simulation, precise camera movements, motion graphics, motion tracking, sound design, sound engineering, and many hours of rendering to get this visually stunning video of a Pulsar in action. It basically encompassed many of the skills I've learned up to this point in my career.",
+        "shortDescription": "A visually stunning presentation of a Pulsar instrument in action",
+        "video": "https://www.youtube.com/embed/cS-IxHNq4dk?si=xWTlrdqzpf-vdOy9"
+    },
+    {
         "title": "Backdrop Logo Animation for DJ Mincer's Set",
         "description": "Dynamic logo animation crafted in 3DS Max with PhoenixFD for the smoke animation, and After Effect with the Maxon Red Giant plugin for the subsequent effect. It was all synced to Mincer's very own music for a seamless experience.",
         "shortDescription": "A visually stunning logo animation for DJ Mincer",
@@ -58,6 +64,7 @@
         "video": "https://www.youtube.com/embed/6h-3SaBS3h8?si=E0PYg6i7-azFVNpB"
     }
 ]
+
 
 
 
