@@ -1,0 +1,62 @@
+[
+  {
+    "n": 1,
+    "t": "Announcing an Industry-Defining Product",
+    "s": "A technical showcase — every pixel, light beam, and sound cue speaks.",
+    "d": "For this one, the mission was to go above and beyond. Using 3DS Max, V-Ray, PhoenixFD for smoke dynamics, and After Effects for post-rendering. Compiled in Premiere Pro where the SFX magic was done.",
+    "v": "https://www.youtube.com/embed/CaAst77ZhnQ",
+    "bg": null,
+    "year": "2025",
+    "tags": ["3DS Max", "V-Ray", "PhoenixFD"]
+  },
+  {
+    "n": 2,
+    "t": "Cinematic Presentation of a Pulsar",
+    "s": "A visually stunning Pulsar instrument in action.",
+    "d": "A project I am most proud of. A blend of 3D modeling, look-dev, technical accuracy, particle simulation, precise camera movements, motion graphics, sound design, and many hours of rendering.",
+    "v": "https://www.youtube.com/embed/cS-IxHNq4dk",
+    "bg": null,
+    "year": "2026",
+    "tags": ["3DS Max", "TyFlow", "V-Ray", "Sound Design"]
+  },
+  {
+    "n": 3,
+    "t": "Backdrop Logo for DJ Mincer",
+    "s": "Dynamic logo animation synced to Mincer's own music.",
+    "d": "Crafted in 3DS Max with PhoenixFD for smoke animation, and After Effects with the Maxon Red Giant plugin. All synced to Mincer's very own music.",
+    "v": "https://www.youtube.com/embed/EBKsAqjBEIQ",
+    "bg": null,
+    "year": "2024",
+    "tags": ["3DS Max", "PhoenixFD", "Red Giant", "After Effects"]
+  },
+  {
+    "n": 4,
+    "t": "TDR XD Revealer",
+    "s": "A dynamic, technical, and rich in VFX and SFX revealer that introduces a cutting-edge high-density instrument for volume AI Rack testing.",
+    "d": "Using 3DS Max, V-Ray, and TyFlow for Particle Physics. Post editing done in After Effects.",
+    "v": "https://www.youtube.com/embed/9CwF4tsvlqw",
+    "bg": null,
+    "year": "2025",
+    "tags": ["3DS Max","V-Ray", "TyFlow"]
+  },
+  {
+    "n": 5,
+    "t": "CODENAME:THOR Teaser",
+    "s": "Highly technical teaser for a revolutionary product",
+    "d": "This short - and highly technical - teaser presents dynamic camera motions and effects made inside 3DS Max using TyFlow for the particle physics used for lightning and PhoenixFD for the clouds and smoke simulation. A fitting soundtrack was curated to fully convey the vibe of the video, while injecting key SFX elements to sell the ambience.",
+    "v": "https://www.youtube.com/embed/FQM2GFKpVfA",
+    "bg": null,
+    "year": "2026",
+    "tags": ["3DS Max", "V-Ray", "TyFlow"]
+  },
+  {
+    "n": 6,
+    "t": "Christmas at MultiLane — A Snow Globe",
+    "s": "The MultiLane Campus reimagined in 3D as a snow globe.",
+    "d": "A reproduction of the MultiLane Campus in 3D — made in 3DS Max using V-Ray and SnowPlus. A very special snow globe.",
+    "v": "https://www.youtube.com/embed/gPWRVfgWzbA",
+    "bg": null,
+    "year": "2024",
+    "tags": ["V-Ray", "3DS Max", "TyFlow"]
+  }
+]

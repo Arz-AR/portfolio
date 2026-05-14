@@ -1,0 +1,14 @@
+# Local IDE / tooling
+.claude/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor swap/backup
+*.swp
+*~
+*.bak

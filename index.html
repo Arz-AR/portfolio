@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY8YZD98F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NEY8YZD98F');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- SEO -->
+<title>Arz Abou Rached — Multimedia Engineer & 3D Artist Portfolio</title>
+<meta name="description" content="Arz Abou Rached is a Multimedia Engineer based in Beirut, specializing in cinematic 3D, animation, and technical storytelling. Selected work 2023–26.">
+<meta name="keywords" content="Multimedia Engineer, 3D Artist, Cinematic 3D, Animation, 3DS Max, V-Ray, PhoenixFD, TyFlow, After Effects, Beirut, Portfolio, Arz Abou Rached">
+<meta name="author" content="Arz Abou Rached">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arz-ar.com">
+
+<!-- Open Graph (Facebook / LinkedIn / Discord / iMessage) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Arz Abou Rached">
+<meta property="og:title" content="Arz Abou Rached — Multimedia Engineer & 3D Artist Portfolio">
+<meta property="og:description" content="A practice in cinematic 3D, technical storytelling, and the patient craft of frames-per-second.">
+<meta property="og:image" content="https://arz-ar.com/assets/images/og/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://arz-ar.com">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arz Abou Rached — Multimedia Engineer & 3D Artist Portfolio">
+<meta name="twitter:description" content="A practice in cinematic 3D, technical storytelling, and the patient craft of frames-per-second.">
+<meta name="twitter:image" content="https://arz-ar.com/assets/images/og/og-image.jpg">
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png">
+<link rel="shortcut icon" href="assets/icons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="assets/icons/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Arz A.R.">
+<meta name="theme-color" content="#181410">
+
+<!-- Structured Data (Schema.org Person) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Arz Abou Rached",
+  "url": "https://arz-ar.com",
+  "image": "https://arz-ar.com/assets/images/portrait/Portrait.png",
+  "jobTitle": "Multimedia Engineer",
+  "description": "Multimedia Engineer specializing in cinematic 3D, animation, and technical storytelling. Based in Beirut, working worldwide.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Beirut",
+    "addressCountry": "LB"
+  },
+  "sameAs": [
+    "https://www.instagram.com/arz.ar",
+    "https://www.linkedin.com/in/arz-abou-rached",
+    "https://www.youtube.com/@arz-ar"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,800&family=PP+Neue+Montreal&family=JetBrains+Mono:wght@400;500&family=Archivo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="cur-r"></div>
+<div class="cur-lbl" id="cur-lbl">View</div>
+
+<div id="intro">
+  <div class="intro-top">
+    <div><b></b><span>Establishing Connection</span></div>
+    <div>2026 / Portfolio v.04</div>
+  </div>
+  <div class="intro-mid">
+    <div class="intro-tagline">— A Multimedia Engineer's Studio —</div>
+    <div class="intro-mark">Arz <em>Abou Rached</em></div>
+  </div>
+  <div class="intro-bot">
+    <div class="intro-pct"><span id="intro-n">0</span><span class="sym">%</span></div>
+    <div class="intro-bar-wrap">
+      <span>Loading Assets · 3D · Frames · Audio</span>
+      <div class="intro-bar"><i id="intro-i"></i></div>
+    </div>
+  </div>
+</div>
+
+<canvas id="grain"></canvas>
+<canvas id="bg-cv"></canvas>
+<canvas id="txt-cv"></canvas>
+
+<aside class="rail">
+  <span class="rail-logo">AR</span>
+  <a href="#hero" class="rail-i" data-r="hero" data-s="hero"><span class="rail-n">i</span><span>Index</span></a>
+  <b></b>
+  <a href="#work" class="rail-i" data-r="work" data-s="work"><span class="rail-n">01</span><span>Work</span></a>
+  <b></b>
+  <a href="#about" class="rail-i" data-r="about" data-s="about"><span class="rail-n">02</span><span>Studio</span></a>
+  <b></b>
+  <a href="#contact" class="rail-i" data-r="contact" data-s="contact"><span class="rail-n">03</span><span>Contact</span></a>
+</aside>
+
+<main>
+<section id="hero" data-screen-label="Hero">
+  <div class="h-meta">
+    <em>Lat 33.88° N</em> / <em>Long 35.49° E</em><br>
+    <b>Beirut, Lebanon</b><br>
+    Local · <span id="h-time">--:--</span>
+  </div>
+  <div class="h-label"><span class="h-li">Multimedia Engineer · 3D Animation Artist</span></div>
+  <h1 class="h-name" id="h-name">
+    <span class="h-word"><span class="h-char">A</span><span class="h-char">r</span><span class="h-char">z</span></span><span class="h-sp">&nbsp;</span><span class="h-word"><span class="h-char it">A</span><span class="h-char it">b</span><span class="h-char it">o</span><span class="h-char it">u</span></span><br><span class="h-word-n"><span class="h-char it">R</span><span class="h-char it">a</span><span class="h-char it">c</span><span class="h-char it">h</span><span class="h-char it">e</span><span class="h-char it">d</span></span>
+  </h1>
+  <div class="h-foot">
+    <div class="h-role"><span class="h-ri">A practice in <em style="color:var(--fg-warm)">cinematic 3D</em>, technical storytelling, and the patient craft of frames-per-second.</span></div>
+    <div class="h-stats">
+      <div><b>06</b>Selected works</div>
+      <div><b>120+</b>Renders shipped</div>
+      <div><b>&#8734;</b>Hours rendering</div>
+    </div>
+  </div>
+  <div class="sc" id="sc"><span>Scroll</span><div class="sc-l"></div></div>
+</section>
+
+<div class="tick" aria-hidden="true">
+  <div class="tick-track" id="tick-track"></div>
+</div>
+<div class="tick r2" aria-hidden="true">
+  <div class="tick-track" id="tick-track-2"></div>
+</div>
+
+<section id="work" data-screen-label="Work">
+  <div class="ws">
+    <div class="wi">
+      <div>
+        <div class="sect-mark"><span class="num">01 /</span><span>Selected Work</span><span class="ln"></span></div>
+        <h2 class="wh"><span class="wrv"><span>Selected</span></span> <span class="wrv"><span><em>Frames</em></span></span></h2>
+      </div>
+      <div class="wc rv d1"><b>06</b>Projects · 2023–26</div>
+    </div>
+    <div class="ww"><div class="wt" id="wt"></div></div>
+  </div>
+</section>
+
+<div class="chap">
+  <div class="chap-num"><em>02</em></div>
+  <div class="chap-r">
+    <div class="chap-l">— Chapter Two</div>
+    <h3 class="chap-t">A small studio of <em>one</em>, working at the intersection of engineering and motion.</h3>
+  </div>
+</div>
+
+<section id="about" data-screen-label="About">
+  <div class="about-l">
+    <div class="about-portrait">
+      <img class="about-portrait-img" src="assets/images/portrait/Portrait.png" alt="Portrait of Arz Abou Rached">
+      <div class="about-portrait-cap">
+        <span><b>Arz</b> · 2026</span>
+        <span>Beirut</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-r">
+    <div class="sect-mark"><span class="num">02 /</span><span>The Studio</span><span class="ln"></span></div>
+    <p class="as"><span class="wrv"><span>Blurring</span></span> <span class="wrv"><span>the</span></span> <span class="wrv"><span>line</span></span> <span class="wrv"><span>between</span></span> <span class="wrv"><span><em>technical&nbsp;precision</em></span></span> <span class="wrv"><span>and</span></span> <span class="wrv"><span>cinematic</span></span> <span class="wrv"><span>storytelling.</span></span></p>
+    <p class="ab rv">I'm a <strong>Multimedia Engineer</strong> who took a passion to 3D art, bringing ideas to life through animation, modeling, and the patient craft of light. I work where engineering meets cinema — where every pixel, particle and beam serves the story.</p>
+    <p class="ab rv d2">Constantly exploring new techniques: fluid dynamics with PhoenixFD, particle simulation with TyFlow, photorealistic materials in V-Ray. I render slow, edit slower, and ship pieces that earn their seconds on screen.</p>
+    <div class="tools-h">— Tools of the Trade</div>
+    <div class="tools rv d3">
+      <span class="tool">3DS Max</span><span class="tool">V-Ray</span><span class="tool">PhoenixFD</span><span class="tool">TyFlow</span><span class="tool">After Effects</span><span class="tool">Premiere Pro</span><span class="tool">Red Giant</span><span class="tool">Maya</span><span class="tool">Illustrator</span><span class="tool">Photoshop</span>
+    </div>
+  </div>
+</section>
+
+<div class="chap">
+  <div class="chap-num"><em>03</em></div>
+  <div class="chap-r">
+    <div class="chap-l">— Chapter Three</div>
+    <h3 class="chap-t">Got a frame in mind? <em>Let's render it together.</em></h3>
+  </div>
+</div>
+
+<section id="contact" data-screen-label="Contact">
+  <div class="sect-mark"><span class="num">03 /</span><span>Get in Touch</span><span class="ln"></span></div>
+  <a href="mailto:contact@arz-ar.com" class="cb" data-cur="Email"><span class="wrv"><span>Let's</span></span> <span class="wrv"><span><em>collaborate.</em></span></span></a>
+  <div class="contact-row rv d2">
+    <a href="mailto:contact@arz-ar.com" class="ce mag"><i class="fas fa-arrow-right"></i> <span>contact@arz-ar.com</span></a>
+    <div class="socs">
+      <a href="https://www.instagram.com/arz.ar" class="soc mag" target="_blank" rel="noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/arz-abou-rached" class="soc mag" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@arz-ar" class="soc mag" target="_blank" rel="noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="contact-meta rv d3">
+    <div><b>Currently</b><em>Available</em> · 2026 Q3</div>
+    <div><b>Based In</b>Beirut · Lebanon</div>
+    <div><b>Working</b>Worldwide / Remote</div>
+    <div><b>Reply Time</b>Within 24 hrs</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span class="fn">Arz <em>·</em> Abou Rached</span>
+  <span>© 2026 — Developed by yours truly</span>
+  <span>v.04 · Husk</span>
+</footer>
+
+<div class="mov" id="mov">
+  <div class="mp">
+    <div class="mh">
+      <div class="mh-l">
+        <div class="mt-meta"><b id="mttl-n">01</b><span id="mttl-y">— Project File</span></div>
+        <h2 class="mt" id="mttl"></h2>
+        <div class="m-tags" id="mtags"></div>
+      </div>
+      <button class="mc" id="mcl">Close ×</button>
+    </div>
+    <div class="mb">
+      <div class="mvw" id="mvw"></div>
+      <p class="md" id="mdesc"></p>
+    </div>
+    <div class="mi-g" id="mimgs"></div>
+  </div>
+</div>
+
+<div id="twk">
+  <div class="tt">— Tweaks</div>
+  <div class="tr"><div class="tl">Type Variant</div><div class="tbs"><button class="tb" id="tc" onclick="setVar('c')">Cinematic</button><button class="tb" id="tb" onclick="setVar('b')">Bold</button></div></div>
+  <div class="tr"><div class="tl">Field Density</div><div class="tbs"><button class="tb" id="tho" onclick="setHelix(.5)">Subtle</button><button class="tb" id="thb" onclick="setHelix(1)">Vivid</button></div></div>
+  <div class="tr"><div class="tl">Grain</div><div class="tbs"><button class="tb" id="tgl" onclick="setGrain(.04)">Low</button><button class="tb" id="tgh" onclick="setGrain(.09)">High</button></div></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
