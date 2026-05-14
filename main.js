@@ -5,13 +5,12 @@ const wt = document.getElementById('wt');
 
 /* Pick a YouTube thumbnail tier based on the CSS pixel width the image will
    actually render at, multiplied by device pixel ratio.
-   YouTube offers: mq(320), hq(480), sd(640), maxres(1280). */
+   Only the 16:9 tiers are used — mq (320x180) and maxres (1280x720). The
+   intermediate hq/sd tiers are 4:3 with the video letterboxed inside, which
+   would bake black bars into the rendered card. */
 function ytSizeFor(cssPx){
   const px = cssPx * (window.devicePixelRatio || 1);
-  if(px < 320) return 'mqdefault';
-  if(px < 480) return 'hqdefault';
-  if(px < 640) return 'sddefault';
-  return 'maxresdefault';
+  return px < 320 ? 'mqdefault' : 'maxresdefault';
 }
 function ytVid(url){ const m = url && url.match(/embed\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
 /* Cards: biggest tile is 54vw on desktop, 88vw on mobile (see .wt grid). */
@@ -26,8 +25,13 @@ function ytThumb(url, cssPx){
 
 /* HORIZONTAL SCROLL */
 const workEl = document.getElementById('work');
-function setWH(){ workEl.style.height = (innerHeight + Math.max(0, wt.scrollWidth - innerWidth)) + 'px'; }
+const isMobile = () => matchMedia('(max-width: 900px)').matches;
+function setWH(){
+  if(isMobile()){ workEl.style.height=''; wt.style.transform=''; return; }
+  workEl.style.height = (innerHeight + Math.max(0, wt.scrollWidth - innerWidth)) + 'px';
+}
 function upH(sy){
+  if(isMobile()) return;
   const r = workEl.getBoundingClientRect();
   if(r.top<=0 && r.bottom>=innerHeight){
     const p = Math.min(1,-r.top/(workEl.offsetHeight-innerHeight));
@@ -151,9 +155,12 @@ if(!isTouch){
       return;
     }
     if(now - lastWheelTs > SNAP_IDLE_MS){
-      const {target, dist} = nearestTarget(ty);
-      if(dist > 0 && dist < SNAP_THRESHOLD){
-        ty += (target - ty) * SNAP_PULL;
+      const max = maxScroll();
+      if(max - ty > 120){
+        const {target, dist} = nearestTarget(ty);
+        if(dist > 0 && dist < SNAP_THRESHOLD){
+          ty += (target - ty) * SNAP_PULL;
+        }
       }
     }
     const diff = ty - cy;
@@ -369,17 +376,25 @@ wrvSections.forEach((_,par)=>wrvo.observe(par));
 
 /* ══ MARQUEE ════════════════════════════════════════════════════════ */
 (function buildTick(){
-  const track=document.getElementById('tick-track');
-  const items=['Available for Work','<em>2026</em>','Cinematic 3D','<em>Beirut · Worldwide</em>','Frames per Second','<em>Multimedia Engineer</em>'];
-  let html='';
-  for(let r=0;r<2;r++) items.forEach(it=>{ html+=`<span class="tick-item">${it}<span class="tick-dot"></span></span>`; });
-  track.innerHTML=html;
-
-  const t2=document.getElementById('tick-track-2');
-  const items2=['Render slow','<em>edit slower</em>','3DS Max · V-Ray','<em>PhoenixFD</em>','TyFlow','<em>Light · Smoke · Particles</em>'];
-  let h2='';
-  for(let r=0;r<2;r++) items2.forEach(it=>{ h2+=`<span class="tick-item">${it}<span class="tick-dot"></span></span>`; });
-  t2.innerHTML=h2;
+  /* Build with n duplicated sets and keep growing (in even increments to
+     preserve the translateX(-50%) seamless-loop math) until one half of the
+     track is wider than the viewport — otherwise a visible empty strip flashes
+     at the loop boundary on narrow screens. */
+  function fill(track, items){
+    function set(n){
+      let html='';
+      for(let r=0;r<n;r++) items.forEach(it=>{ html+=`<span class="tick-item">${it}<span class="tick-dot"></span></span>`; });
+      track.innerHTML=html;
+    }
+    let n=2;
+    set(n);
+    while((track.scrollWidth/2) < innerWidth + 100 && n < 16){
+      n+=2;
+      set(n);
+    }
+  }
+  fill(document.getElementById('tick-track'),   ['Available for Work','<em>2026</em>','Cinematic 3D','<em>Beirut · Worldwide</em>','Frames per Second','<em>Multimedia Engineer</em>']);
+  fill(document.getElementById('tick-track-2'), ['Render slow','<em>edit slower</em>','3DS Max · V-Ray','<em>PhoenixFD</em>','TyFlow','<em>Light · Smoke · Particles</em>']);
 })();
 
 /* ══ MAGNETIC HOVER ═══════════════════════════════════════════════ */
