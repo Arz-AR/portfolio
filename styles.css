@@ -127,6 +127,7 @@ body.vb .h-name{font-weight:900;letter-spacing:-.04em;line-height:.85}
 .wrv{display:inline-block;overflow:hidden;vertical-align:bottom;line-height:1.05}
 .wrv > span{display:inline-block;transform:translateY(110%);transition:transform 1s var(--ease)}
 .wrv.in > span{transform:translateY(0)}
+.wrv:has(em){padding-right:.18em;margin-right:-.18em}
 
 /* ══ SECTION HEADER (shared) ═════════════════════════════════════ */
 .sect-head{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:60px;flex-wrap:wrap}
