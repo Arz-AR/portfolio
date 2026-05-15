@@ -115,9 +115,9 @@ body.vb .h-name{font-weight:900;letter-spacing:-.04em;line-height:.85}
 .tick.r2 .tick-item{color:var(--bg)}
 .tick.r2 .tick-item em{color:var(--accent)}
 .tick.r2 .tick-dot{background:var(--bg)}
-.tick-track{display:flex;gap:42px;white-space:nowrap;animation:tickA 38s linear infinite;will-change:transform}
-.tick.r2 .tick-track{animation:tickB 32s linear infinite}
-.tick-item{font-family:var(--font-d);font-size:clamp(2.4rem,5.5vw,5.2rem);font-weight:900;line-height:1;letter-spacing:-.035em;color:var(--fg);display:inline-flex;align-items:center;gap:42px;flex-shrink:0;font-variation-settings:'opsz' 144}
+.tick-track{display:flex;width:max-content;white-space:nowrap;animation:tickA 53s linear infinite;will-change:transform}
+.tick.r2 .tick-track{animation:tickB 45s linear infinite}
+.tick-item{font-family:var(--font-d);font-size:clamp(2.4rem,5.5vw,5.2rem);font-weight:900;line-height:1;letter-spacing:-.035em;color:var(--fg);display:inline-flex;align-items:center;gap:42px;flex-shrink:0;margin-right:42px;font-variation-settings:'opsz' 144}
 .tick-item em{font-style:italic;color:var(--fg-warm);font-weight:400}
 .tick-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--fg-warm);flex-shrink:0}
 @keyframes tickA{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -289,8 +289,8 @@ body.mod-open{cursor:auto}
   .h-name{font-size:clamp(2.8rem,11vw,5rem)}
   .h-stats{gap:24px}
   .tick{margin:24px -4vw}
-  .tick-track{animation-duration:22s}
-  .tick.r2 .tick-track{animation-duration:18s}
+  .tick-track{animation-duration:31s}
+  .tick.r2 .tick-track{animation-duration:25s}
   #work{height:auto!important}
   .ws{position:static;height:auto;overflow:visible}
   .wi{position:static;padding:60px 24px 18px;flex-direction:column;align-items:flex-start;gap:20px}
