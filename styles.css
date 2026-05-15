@@ -41,10 +41,6 @@ body.ch-lbl .cur{opacity:0}
 body.ch-lbl .cur-r{width:96px;height:96px;background:var(--fg-warm);border-color:var(--fg-warm)}
 .cur-lbl{position:fixed;top:0;left:0;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);font-family:var(--font-u);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--bg);opacity:0;transition:opacity .3s ease}
 body.ch-lbl .cur-lbl{opacity:1}
-body.ch-play .cur{opacity:0}
-body.ch-play .cur-r{width:80px;height:80px;background:var(--fg-warm);border-color:var(--fg-warm)}
-body.ch-play .cur-lbl{opacity:1;color:var(--bg);font-family:inherit;letter-spacing:0;font-size:1.1rem;text-transform:none}
-body.ch-play .cur-lbl i{display:inline-block;transform:translateX(2px)}
 @media(max-width:940px){.cur,.cur-r,.cur-lbl{display:none!important}}
 
 /* ══ INTRO LOADER ════════════════════════════════════════════════ */

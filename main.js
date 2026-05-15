@@ -67,8 +67,8 @@ Promise.all([projectsP, thumbsReadyP])
     wt.appendChild(frag);
     document.querySelectorAll('.pc.rv').forEach(el => { if(typeof rvo!=='undefined') rvo.observe(el); else el.classList.add('in'); });
     document.querySelectorAll('.pc').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{ document.body.classList.add('ch'); lblEl.innerHTML='<i class="fas fa-play"></i>'; document.body.classList.add('ch-play'); });
-      el.addEventListener('mouseleave',()=>{ document.body.classList.remove('ch'); document.body.classList.remove('ch-play'); });
+      el.addEventListener('mouseenter',()=>{ document.body.classList.add('ch'); lblEl.textContent='Open'; document.body.classList.add('ch-lbl'); });
+      el.addEventListener('mouseleave',()=>{ document.body.classList.remove('ch'); document.body.classList.remove('ch-lbl'); });
     });
     setWH(); upH(0);
   })
