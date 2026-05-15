@@ -25,7 +25,7 @@ function ytThumb(url, cssPx){
 
 /* HORIZONTAL SCROLL */
 const workEl = document.getElementById('work');
-const isMobile = () => matchMedia('(max-width: 900px)').matches;
+const isMobile = () => matchMedia('(max-width: 940px)').matches;
 function setWH(){
   if(isMobile()){ workEl.style.height=''; wt.style.transform=''; return; }
   workEl.style.height = (innerHeight + Math.max(0, wt.scrollWidth - innerWidth)) + 'px';
@@ -60,13 +60,16 @@ Promise.all([projectsP, thumbsReadyP])
       const thumb = p.bg || ytThumb(p.v, cardTargetPx());
       const bgH = thumb ? `<div class="pc-bg" style="background-image:url('${thumb}')"></div>` : `<div class="pc-ab ${ABS[i]}"></div>`;
       const tagsH = (p.tags||[]).map(t=>`<span class="pc-tag">${t}</span>`).join('');
-      c.innerHTML = `${bgH}<div class="pc-vl"></div><div class="pc-c"><div class="pc-meta"><b>${String(p.n).padStart(2,'0')}</b><span>— ${p.year}</span></div><div class="pc-pl"><i class="fas fa-play"></i></div><h3 class="pc-tt">${p.t}</h3><p class="pc-ds">${p.s}</p><div class="pc-tags">${tagsH}</div></div>`;
+      c.innerHTML = `${bgH}<div class="pc-vl"></div><div class="pc-c"><div class="pc-meta"><b>${String(p.n).padStart(2,'0')}</b><span>— ${p.year}</span></div><h3 class="pc-tt">${p.t}</h3><p class="pc-ds">${p.s}</p><div class="pc-tags">${tagsH}</div></div>`;
       c.addEventListener('click',()=>openModal(p));
       frag.appendChild(c);
     });
     wt.appendChild(frag);
     document.querySelectorAll('.pc.rv').forEach(el => { if(typeof rvo!=='undefined') rvo.observe(el); else el.classList.add('in'); });
-    document.querySelectorAll('.pc').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));});
+    document.querySelectorAll('.pc').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ document.body.classList.add('ch'); lblEl.innerHTML='<i class="fas fa-play"></i>'; document.body.classList.add('ch-play'); });
+      el.addEventListener('mouseleave',()=>{ document.body.classList.remove('ch'); document.body.classList.remove('ch-play'); });
+    });
     setWH(); upH(0);
   })
   .catch(err => console.error('Failed to load projects:', err));
@@ -414,10 +417,6 @@ const lblEl=document.getElementById('cur-lbl');
 document.addEventListener('mousemove',e=>{ lblEl.style.left=e.clientX+'px'; lblEl.style.top=e.clientY+'px'; },{passive:true});
 document.querySelectorAll('[data-cur]').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ lblEl.textContent=el.dataset.cur; document.body.classList.add('ch-lbl'); });
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch-lbl'));
-});
-document.querySelectorAll('.pc').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ lblEl.textContent='Open'; document.body.classList.add('ch-lbl'); });
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch-lbl'));
 });
 
