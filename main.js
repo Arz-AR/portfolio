@@ -397,7 +397,7 @@ wrvSections.forEach((_,par)=>wrvo.observe(par));
     }
   }
   fill(document.getElementById('tick-track'),   ['Available for Work','<em>2026</em>','Cinematic 3D','<em>Beirut · Worldwide</em>','Frames per Second','<em>Multimedia Engineer</em>']);
-  fill(document.getElementById('tick-track-2'), ['Render slow','<em>edit slower</em>','3DS Max · V-Ray','<em>PhoenixFD</em>','TyFlow','<em>Light · Smoke · Particles</em>']);
+  fill(document.getElementById('tick-track-2'), ['Render slow','<em>Edit fast</em>','3DS Max · V-Ray','<em>PhoenixFD</em>','TyFlow','<em>Light · Smoke · Particles</em>']);
 })();
 
 /* ══ MAGNETIC HOVER ═══════════════════════════════════════════════ */
@@ -726,7 +726,7 @@ let helixMats=[];
     });
   });
 
-  // Hover particle effect disabled per request.
+  // Hover particle effect disabled.
   return;
 })();
 

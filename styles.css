@@ -234,13 +234,13 @@ footer{position:relative;z-index:10;padding:32px 56px 32px 110px;border-top:1px 
 /* ══ MODAL ═══════════════════════════════════════════════════════ */
 .mov{position:fixed;inset:0;z-index:2000;display:flex;align-items:stretch;background:rgba(24,20,16,0);pointer-events:none;transition:background .55s ease}
 .mov.open{background:rgba(24,20,16,.97);pointer-events:all;backdrop-filter:blur(8px)}
-.mp{width:100%;height:100vh;height:100dvh;background:var(--bg2);overflow-y:auto;transform:translateY(100%);transition:transform .72s var(--ease);padding:48px 60px 80px}
+.mp{width:100%;height:100vh;height:100dvh;background:var(--bg2);overflow-y:auto;overscroll-behavior:contain;transform:translateY(100%);transition:transform .72s var(--ease);padding:48px 60px 80px}
 .mov.open .mp{transform:none}
 .mh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--fg-hair);gap:32px}
-.mh-l{flex:1}
+.mh-l{flex:1;min-width:0}
 .mt-meta{font-family:var(--font-m);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fg-warm);margin-bottom:14px;display:flex;gap:18px;align-items:center}
 .mt-meta b{color:var(--fg);font-family:var(--font-d);font-style:italic;font-size:1.2rem;font-weight:600;letter-spacing:0;text-transform:none}
-.mt{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;font-variation-settings:'opsz' 144}
+.mt{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;font-variation-settings:'opsz' 144;overflow-wrap:break-word;word-break:break-word;hyphens:auto}
 .mt em{font-style:italic;color:var(--fg-warm);font-weight:400}
 .mc{background:var(--fg-warm);border:none;color:var(--bg);font-family:var(--font-u);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px 26px;border-radius:0;cursor:pointer;transition:background .25s,color .25s;flex-shrink:0}
 .mc:hover{background:var(--fg);color:var(--bg)}
@@ -311,6 +311,8 @@ body.mod-open{cursor:auto}
   footer{padding:24px;justify-content:center;text-align:center}
   .mp{padding:36px 24px 60px}
   .mb{grid-template-columns:1fr}
+  .yt-play{width:66px;height:66px}
+  .yt-play i{font-size:1.27rem}
 }
 
 @media(max-width:360px){
