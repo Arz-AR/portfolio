@@ -54,6 +54,9 @@ const projectsP = fetch('projects.json').then(r => {
 });
 Promise.all([projectsP, thumbsReadyP])
   .then(([data]) => {
+    // Project-count trackers stay in sync with projects.json
+    const countStr = String(data.length).padStart(2,'0');
+    document.querySelectorAll('#stat-count, #wc-count').forEach(el => el.textContent = countStr);
     const frag = document.createDocumentFragment();
     data.forEach((p,i) => {
       const c = document.createElement('div'); c.className='pc rv'; c.style.transitionDelay=(i*.06)+'s';

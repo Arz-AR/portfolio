@@ -58,5 +58,25 @@
     "bg": null,
     "year": "2024",
     "tags": ["V-Ray", "3DS Max", "TyFlow"]
-  }
+  },
+  {
+  "n": 7,
+  "t": "Find Us Around the World",
+  "s": "A glowing node network wrapping a dotted-LED Earth in slow orbit.",
+  "d": "A change of pace, composited entirely in After Effects. A CC Sphere globe wrapped in a live Plexus node network, with a 3DS Max geosphere driving even point distribution. Depth Cue hides the back of the mesh, Deep Glow brings the bloom, and the soundtrack was designed to match.",
+  "v": "https://www.youtube.com/embed/oAoJ_vFFck0",
+  "bg": null,
+  "year": "2026",
+  "tags": ["After Effects", "Plexus", "3DS Max", "Sound Design"]
+  },
+  {
+  "n": 8,
+  "t": "From Mockup to Motion",
+  "s": "A flat dashboard that morphs, glows, and pulls back into 3D space.",
+  "d": "An all-After-Effects composite. The full platform interface was rebuilt in Illustrator, then animated in AE across 2D and 3D — morphing form fields, flowing gradient cards, and custom UI elements throughout. Element 3D drives the monitor reveal and the floating device grid, while Deep Glow and Saber handle the bloom and the energy-lit borders.",
+  "v": "https://www.youtube.com/embed/yFppaC67zaA",
+  "bg": null,
+  "year": "2025",
+  "tags": ["After Effects", "Illustrator", "Element 3D", "Deep Glow"]
+}
 ]

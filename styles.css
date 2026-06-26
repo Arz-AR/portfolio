@@ -147,7 +147,7 @@ body.vb .wh{font-weight:900;letter-spacing:-.04em}
 .wc{font-family:var(--font-m);font-size:.7rem;color:var(--fg-mid);letter-spacing:.18em;text-transform:uppercase;text-align:right;line-height:1.7}
 .wc b{display:block;color:var(--fg);font-family:var(--font-d);font-style:italic;font-weight:600;font-size:1.4rem;letter-spacing:0;text-transform:none}
 .ww{flex:1;overflow:hidden;padding:0 4px 4px}
-.wt{display:grid;grid-template-rows:repeat(2,1fr);grid-template-columns:54vw 36vw 42vw 50vw 38vw;height:100%;gap:4px;width:max-content;will-change:transform;padding-left:110px}
+.wt{display:grid;grid-template-rows:repeat(2,1fr);grid-template-columns:54vw 36vw 42vw 50vw 38vw;height:100%;gap:4px;width:max-content;will-change:transform;padding-left:110px;padding-right:110px}
 .pc{position:relative;overflow:hidden;background:var(--bg-card);border:1px solid var(--fg-hair)}
 @media(min-width:941px) and (hover:hover){.pc{cursor:none}}
 .pc:nth-child(1){grid-column:1;grid-row:1/span 2}
@@ -294,7 +294,7 @@ body.mod-open{cursor:auto}
   .wc{display:flex;align-items:baseline;gap:.55em;text-align:left;line-height:1.4}
   .wc b{font-size:1.2rem}
   .ww{overflow:visible;padding:0 24px}
-  .wt{display:flex;flex-direction:column;grid-template-columns:none;gap:16px;width:100%;padding-left:0;transform:none!important}
+  .wt{display:flex;flex-direction:column;grid-template-columns:none;gap:16px;width:100%;padding-left:0;padding-right:0;transform:none!important}
   .pc{width:100%;aspect-ratio:16/9}
   .pc:nth-child(n){grid-column:auto;grid-row:auto}
   .pc-tt{font-size:clamp(1.4rem,5vw,2.2rem);transform:none}
