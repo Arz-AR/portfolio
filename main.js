@@ -1,5 +1,8 @@
 const ABS = ['pa1','pa2','pa3','pa4','pa5','pa1'];
 
+/* Honour the OS "reduce motion" setting: no scroll hijack, no ambient animation. */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* BUILD CARDS */
 const wt = document.getElementById('wt');
 
@@ -57,7 +60,7 @@ function revealCard(c){
   const range = workEl.offsetHeight - innerHeight;
   if(maxX<=0 || range<=0) return;
   const pad = 110;
-  const curY = (typeof ty==='number' && !isTouch) ? ty : window.scrollY;
+  const curY = smoothScroll ? ty : window.scrollY;
   const inWork = curY>=workEl.offsetTop-2 && curY<=workEl.offsetTop+range+2;
   const curX = Math.min(1, Math.max(0, (curY - workEl.offsetTop)/range)) * maxX;
   const left = c.offsetLeft - curX, right = left + c.offsetWidth;
@@ -114,6 +117,7 @@ Promise.all([projectsP, thumbsReadyP])
 if('scrollRestoration' in history){ history.scrollRestoration='manual'; }
 window.scrollTo(0,0);
 const isTouch = window.matchMedia('(hover:none)').matches;
+const smoothScroll = !isTouch && !reduceMotion;
 let cy = 0, ty = 0;
 let lastWheelTs = 0;
 const LERP = 0.085;
@@ -137,7 +141,7 @@ function nearestTarget(y){
   return {target:best, dist:bd};
 }
 
-if(!isTouch){
+if(smoothScroll){
   document.documentElement.style.scrollBehavior='auto';
   window.addEventListener('wheel', e=>{
     if(document.body.classList.contains('intro-active')){ e.preventDefault(); return; }
@@ -293,7 +297,7 @@ function openModal(p){
   mov.classList.add('open'); document.body.classList.add('mod-open'); document.body.style.overflow='hidden';
   mpEl.scrollTop=0;
   mclEl.focus({preventScroll:true});
-  if(!isTouch){ty=cy;}
+  if(smoothScroll){ty=cy;}
 }
 function closeM(){
   if(!mov.classList.contains('open')) return;
@@ -339,7 +343,7 @@ function playHero(){
     iEl.style.right=(100-pct)+'%';
   }
   // Minimum on-screen time so the bar always reads smoothly, even on a hot cache.
-  const MIN_MS=2400, startTs=performance.now();
+  const MIN_MS=reduceMotion?0:2400, startTs=performance.now();
   // Slow lerp + a small floor (~0.18%/frame at 60fps) keeps the counter creeping
   // forward instead of standing still or jumping.
   function loop(){
@@ -361,8 +365,8 @@ function playHero(){
         introEl.classList.add('gone');
         document.body.classList.remove('intro-active');
         document.documentElement.classList.remove('intro-active');
-        setTimeout(()=>{ introEl.style.display='none'; playHero(); },900);
-      },360);
+        setTimeout(()=>{ introEl.style.display='none'; playHero(); },reduceMotion?0:900);
+      },reduceMotion?0:360);
       return;
     }
     rafId=requestAnimationFrame(loop);
@@ -430,6 +434,13 @@ function playHero(){
   tick(); setInterval(tick,30000);
 })();
 
+/* Availability stamp in Contact — always the current quarter, so it never reads stale */
+(function availQ(){
+  const el=document.getElementById('avail-q'); if(!el) return;
+  const d=new Date();
+  el.textContent=d.getFullYear()+' Q'+(Math.floor(d.getMonth()/3)+1);
+})();
+
 /* ══ REVEALS ════════════════════════════════════════════════════════ */
 const rvo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el=>rvo.observe(el));
@@ -473,7 +484,7 @@ wrvSections.forEach((_,par)=>wrvo.observe(par));
 })();
 
 /* ══ MAGNETIC HOVER ═══════════════════════════════════════════════ */
-document.querySelectorAll('.ce, .soc, .mc, .mag').forEach(el=>{
+if(!reduceMotion) document.querySelectorAll('.ce, .soc, .mc, .mag').forEach(el=>{
   el.classList.add('mag');
   el.addEventListener('mousemove',e=>{
     const r=el.getBoundingClientRect();
@@ -607,16 +618,15 @@ let helixMats=[];
   const ambGeo=ambPts.geometry, ambBase=new Float32Array(amb);
 
   let tRX=0,tRY=0,cRX=0,cRY=0,autoY=0;
-  document.addEventListener('mousemove',e=>{
+  if(!reduceMotion) document.addEventListener('mousemove',e=>{
     tRY=(e.clientX/innerWidth-.5)*.55;
     tRX=-(e.clientY/innerHeight-.5)*.28;
   },{passive:true});
 
-  window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+  window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);if(reduceMotion)draw();});
 
   function draw(t){
-    requestAnimationFrame(draw);
-    autoY+=.0028;
+    if(!reduceMotion){ requestAnimationFrame(draw); autoY+=.0028; }
     cRY+=(tRY-cRY)*.05; cRX+=(tRX-cRX)*.05;
     const sp=Math.min(1,window.scrollY/Math.max(1,document.body.scrollHeight-innerHeight));
     grp.rotation.y=autoY+cRY+sp*Math.PI*2.5;
@@ -637,6 +647,7 @@ let helixMats=[];
 
 /* ══ HERO TITLE — MAGNETIC LETTER DISTORT (Corn Rev style) ═════════ */
 (function initTitleMagnetic(){
+  if(reduceMotion) return;
   const heroEl=document.getElementById('hero');
   const nameEl=document.getElementById('h-name');
   const chars=[...nameEl.querySelectorAll('.h-char')];
@@ -805,14 +816,18 @@ let helixMats=[];
 /* ══ GRAIN ══════════════════════════════════════════════════════════ */
 (function initGrain(){
   const cv=document.getElementById('grain'),ctx=cv.getContext('2d');
-  function resize(){cv.width=innerWidth;cv.height=innerHeight;}
-  resize(); window.addEventListener('resize',resize);
-  let f=0;
-  (function gen(){
-    if(++f%3!==0){requestAnimationFrame(gen);return;}
+  function paint(){
     const id=ctx.createImageData(cv.width,cv.height),d=id.data;
     for(let i=0;i<d.length;i+=4){const v=Math.random()*255|0;d[i]=d[i+1]=d[i+2]=v;d[i+3]=255;}
-    ctx.putImageData(id,0,0); requestAnimationFrame(gen);
+    ctx.putImageData(id,0,0);
+  }
+  // Reduced motion: one still frame of grain (repainted on resize) instead of flicker.
+  function resize(){cv.width=innerWidth;cv.height=innerHeight;if(reduceMotion)paint();}
+  resize(); window.addEventListener('resize',resize);
+  let f=0;
+  if(!reduceMotion) (function gen(){
+    if(++f%3===0) paint();
+    requestAnimationFrame(gen);
   })();
   cv.style.opacity='.06';
 })();
