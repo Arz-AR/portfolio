@@ -16,8 +16,8 @@ html{font-size:16px;scrollbar-width:thin;scrollbar-color:#f7c871 transparent;ove
   --fg:#f4ead8;          /* bone cream */
   --fg-warm:#f7c871;     /* kernel gold */
   --accent:#c64d2a;      /* burnt sienna */
-  --fg-mid:rgba(244,234,216,.55);
-  --fg-dim:rgba(244,234,216,.22);
+  --fg-mid:rgba(244,234,216,.7);   /* 8.0:1 on --bg */
+  --fg-dim:rgba(244,234,216,.52);  /* 4.9:1 on --bg — lowest tier for readable text (WCAG AA) */
   --fg-hair:rgba(244,234,216,.09);
   --border-hi:rgba(244,234,216,.22);
   --font-d:'Fraunces',serif;
@@ -98,6 +98,9 @@ body.vb .h-name{font-weight:900;letter-spacing:-.04em;line-height:.85}
 .h-word{display:inline;overflow:hidden;vertical-align:top}
 .h-word-n{display:inline;vertical-align:top}
 .h-char{display:inline-block;transform:translateY(115%);transition:transform 1.1s var(--ease),opacity .8s ease;opacity:0}
+/* Optical spacing for "Arz": at this weight and tracking the r's ear runs into the z */
+.h-name .h-word:first-child .h-char:nth-child(1){letter-spacing:-.02em}
+.h-name .h-word:first-child .h-char:nth-child(2),.intro-mark .ks{letter-spacing:.01em}
 .h-sp{display:inline-block;width:.18em}
 .h-foot{display:flex;justify-content:space-between;align-items:flex-end;width:100%;gap:40px;flex-wrap:wrap;border-top:1px solid var(--fg-hair);padding-top:32px;margin-top:8px}
 .h-role{font-family:var(--font-d);font-style:italic;font-size:clamp(1.1rem,1.8vw,1.5rem);font-weight:400;color:var(--fg);letter-spacing:-.005em;overflow:hidden;max-width:560px}
@@ -112,7 +115,7 @@ body.vb .h-name{font-weight:900;letter-spacing:-.04em;line-height:.85}
 .tick{position:relative;z-index:10;border-top:1px solid var(--border-hi);border-bottom:1px solid var(--border-hi);overflow:hidden;padding:22px 0;background:var(--bg);transform:rotate(-1.4deg);margin:32px -2vw}
 .tick.r2{transform:rotate(.9deg);margin-top:-30px;background:var(--fg-warm);color:var(--bg);border-color:var(--fg-warm)}
 .tick.r2 .tick-item{color:var(--bg)}
-.tick.r2 .tick-item em{color:var(--accent)}
+.tick.r2 .tick-item em{color:#a83f1c}  /* deeper sienna: 4.0:1 on the gold band (was 3.0:1) */
 .tick.r2 .tick-dot{background:var(--bg)}
 .tick-track{display:flex;width:max-content;white-space:nowrap;animation:tickA 53s linear infinite;will-change:transform}
 .tick.r2 .tick-track{animation:tickB 45s linear infinite}
@@ -147,7 +150,7 @@ body.vb .wh{font-weight:900;letter-spacing:-.04em}
 .wc{font-family:var(--font-m);font-size:.7rem;color:var(--fg-mid);letter-spacing:.18em;text-transform:uppercase;text-align:right;line-height:1.7}
 .wc b{display:block;color:var(--fg);font-family:var(--font-d);font-style:italic;font-weight:600;font-size:1.4rem;letter-spacing:0;text-transform:none}
 .ww{flex:1;overflow:hidden;padding:0 4px 4px}
-.wt{display:grid;grid-template-rows:repeat(2,1fr);grid-template-columns:54vw 36vw 42vw 50vw 38vw;height:100%;gap:4px;width:max-content;will-change:transform;padding-left:110px;padding-right:110px}
+.wt{display:grid;grid-template-rows:repeat(2,1fr);grid-template-columns:54vw 36vw 42vw 50vw 38vw;grid-auto-flow:column;grid-auto-columns:44vw;height:100%;gap:4px;width:max-content;will-change:transform;padding-left:110px;padding-right:110px}
 .pc{position:relative;overflow:hidden;background:var(--bg-card);border:1px solid var(--fg-hair)}
 @media(min-width:941px) and (hover:hover){.pc{cursor:none}}
 .pc:nth-child(1){grid-column:1;grid-row:1/span 2}
@@ -156,29 +159,36 @@ body.vb .wh{font-weight:900;letter-spacing:-.04em}
 .pc:nth-child(4){grid-column:3;grid-row:1/span 2}
 .pc:nth-child(5){grid-column:4;grid-row:1}
 .pc:nth-child(6){grid-column:4;grid-row:2}
-.pc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform 1.1s var(--ease),filter .5s ease;filter:brightness(.45) sepia(.25) saturate(.9)}
-.pc:hover .pc-bg{transform:scale(1.12);filter:brightness(.65) sepia(.4) saturate(1.05)}
+.pc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform 1.1s var(--ease),filter .5s ease;filter:brightness(.82) sepia(.1) saturate(.95)}
+.pc:hover .pc-bg,.pc:focus-visible .pc-bg{transform:scale(1.12);filter:brightness(1) sepia(0) saturate(1.05)}
 .pc-ab{position:absolute;inset:0}
 .pa1{background:radial-gradient(ellipse 80% 70% at 30% 60%,#3a2c1a,#1a130c)}
 .pa2{background:radial-gradient(ellipse 70% 80% at 75% 30%,#2e2515,#15100a)}
 .pa3{background:radial-gradient(ellipse 90% 60% at 15% 80%,#3d2f1c,#181208)}
 .pa4{background:radial-gradient(ellipse 60% 90% at 85% 20%,#322618,#15100a)}
 .pa5{background:radial-gradient(ellipse 85% 65% at 50% 50%,#392a18,#16110a)}
-.pc-vl{position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.1) 45%,rgba(0,0,0,.55) 100%)}
+/* Scrims only where text sits (number on top, title at the bottom) — the render stays clear in between */
+.pc-vl{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 46%,rgba(0,0,0,.78) 100%)}
 .pc-c{position:absolute;inset:0;padding:24px 26px;display:flex;flex-direction:column;justify-content:flex-end}
 .pc-meta{position:absolute;top:22px;left:24px;right:24px;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-m);font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-dim)}
 .pc-meta b{color:var(--fg);font-family:var(--font-d);font-style:italic;font-size:1.6rem;font-weight:600;letter-spacing:0;line-height:1}
-.pc-tt{font-family:var(--font-d);font-size:clamp(1.3rem,2.05vw,2.6rem);font-weight:800;line-height:1.04;letter-spacing:-.024em;color:var(--fg);transform:translateY(8px);transition:transform .55s var(--ease);margin-bottom:10px;font-variation-settings:'opsz' 144;text-wrap:balance}
+.pc-tt{font-family:var(--font-d);font-size:clamp(1.3rem,2.05vw,2.6rem);font-weight:800;line-height:1.04;letter-spacing:-.024em;color:var(--fg);transform:translateY(8px);transition:transform .55s var(--ease);margin-bottom:10px;font-variation-settings:'opsz' 144;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.55)}
 .pc-tt em{font-style:italic;color:var(--fg-warm);font-weight:400}
 body.vb .pc-tt{letter-spacing:-.02em;font-weight:900}
-.pc:hover .pc-tt{transform:none}
+.pc:hover .pc-tt,.pc:focus-visible .pc-tt{transform:none}
 .pc-ds{font-family:var(--font-u);font-size:.75rem;line-height:1.55;color:var(--fg-mid);opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease);max-width:340px;letter-spacing:.01em;border: 1px solid var(--border-hi);background:rgba(24,20,16,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 14px}
-.pc:hover .pc-ds{opacity:1;transform:none}
-.pc-tags{display:flex;gap:6px;margin-top:12px;opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease) .05s,transform .55s var(--ease) .05s}
-.pc:hover .pc-tags{opacity:1;transform:none}
-.pc-tag{font-family:var(--font-m);font-size:.55rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);padding:4px 10px;border:1px solid var(--border-hi);border-radius:0;background:rgba(24,20,16,.6)}
+.pc:hover .pc-ds,.pc:focus-visible .pc-ds{opacity:1;transform:none}
+.pc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease) .05s,transform .55s var(--ease) .05s}
+.pc:hover .pc-tags,.pc:focus-visible .pc-tags{opacity:1;transform:none}
+/* Keyboard focus — gold ring, drawn inside the card since the track clips its edges */
+:focus-visible{outline:2px solid var(--fg-warm);outline-offset:3px}
+.pc:focus-visible{outline:none}
+.pc::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border:2px solid transparent;transition:border-color .25s ease}
+.pc:focus-visible::after{border-color:var(--fg-warm)}
+.yt-poster:focus-visible{outline-offset:-4px}
+.pc-tag{white-space:nowrap;font-family:var(--font-m);font-size:.55rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);padding:4px 10px;border:1px solid var(--border-hi);border-radius:0;background:rgba(24,20,16,.6)}
 .m-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.m-tag{font-family:var(--font-m);font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);padding:5px 11px;border:1px solid var(--border-hi);background:rgba(24,20,16,.6)}
+.m-tag{white-space:nowrap;font-family:var(--font-m);font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);padding:5px 11px;border:1px solid var(--border-hi);background:rgba(24,20,16,.6)}
 
 /* ══ CHAPTER DIVIDER ═════════════════════════════════════════════ */
 .chap{padding:120px 56px 80px 110px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap;border-top:1px solid var(--fg-hair)}
@@ -295,7 +305,10 @@ body.mod-open{cursor:auto}
   .wc b{font-size:1.2rem}
   .ww{overflow:visible;padding:0 24px}
   .wt{display:flex;flex-direction:column;grid-template-columns:none;gap:16px;width:100%;padding-left:0;padding-right:0;transform:none!important}
-  .pc{width:100%;aspect-ratio:16/9}
+  /* 16:9 is the minimum — the card grows when the title + wrapped chips need more room,
+     so they never ride up into the number/year row */
+  .pc{width:100%;min-height:calc((100vw - 48px)*.5625);display:flex;flex-direction:column}
+  .pc-c{position:relative;inset:auto;flex:1 0 auto;padding-top:64px}
   .pc:nth-child(n){grid-column:auto;grid-row:auto}
   .pc-tt{font-size:clamp(1.4rem,5vw,2.2rem);transform:none}
   .pc-ds{display:none}
@@ -315,9 +328,16 @@ body.mod-open{cursor:auto}
   .yt-play i{font-size:1.27rem}
 }
 
+/* Reduce motion: reveals land instantly, marquees and the scroll cue hold still.
+   (main.js also turns off smooth-scroll, the 3D drift, grain flicker and magnetic effects.) */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .tick-track,.tick.r2 .tick-track,.sc-l{animation:none!important}
+}
+
 @media(max-width:360px){
   .ww{padding:0 14px}
-  .pc-c{padding:16px 18px}
+  .pc-c{padding:52px 18px 16px}
   .pc-meta{top:14px;left:18px;right:18px;font-size:.55rem}
   .pc-meta b{font-size:1.3rem}
   .pc-tt{font-size:clamp(1.05rem,4.6vw,1.5rem);margin-bottom:6px}
