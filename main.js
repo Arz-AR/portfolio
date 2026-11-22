@@ -33,13 +33,38 @@ function setWH(){
 function upH(sy){
   if(isMobile()) return;
   const r = workEl.getBoundingClientRect();
-  if(r.top<=0 && r.bottom>=innerHeight){
-    const p = Math.min(1,-r.top/(workEl.offsetHeight-innerHeight));
-    wt.style.transform = `translateX(${-p*(wt.scrollWidth-innerWidth)}px)`;
-  }
+  const range = workEl.offsetHeight-innerHeight;
+  if(range<=0) return;
+  // Clamp rather than skip outside the section, so the track never keeps a stale offset.
+  const p = Math.min(1, Math.max(0, -r.top/range));
+  wt.style.transform = `translateX(${-p*(wt.scrollWidth-innerWidth)}px)`;
 }
 window.addEventListener('load',()=>{ window.scrollTo(0,0); cy=0; ty=0; setWH(); upH(0); });
 window.addEventListener('resize',()=>{ setWH(); upH(window.scrollY); });
+
+/* Vertical scroll helper — swapped for the eased tween when smooth scroll is on. */
+let scrollToY = y => window.scrollTo(0, y);
+
+/* Keyboard focus on a card: the track is moved with a transform, so the
+   browser can't scroll the card into view by itself. Work out the page
+   scroll position that slides the card on-screen and go there. */
+const wwEl = document.querySelector('.ww');
+// .ww is overflow:hidden — stop focus() from scrolling it sideways behind our back.
+wwEl.addEventListener('scroll',()=>{ if(wwEl.scrollLeft) wwEl.scrollLeft=0; });
+function revealCard(c){
+  if(isMobile()) return;                         // vertical stack: native focus scroll works
+  const maxX = Math.max(0, wt.scrollWidth - innerWidth);
+  const range = workEl.offsetHeight - innerHeight;
+  if(maxX<=0 || range<=0) return;
+  const pad = 110;
+  const curY = (typeof ty==='number' && !isTouch) ? ty : window.scrollY;
+  const inWork = curY>=workEl.offsetTop-2 && curY<=workEl.offsetTop+range+2;
+  const curX = Math.min(1, Math.max(0, (curY - workEl.offsetTop)/range)) * maxX;
+  const left = c.offsetLeft - curX, right = left + c.offsetWidth;
+  if(inWork && left>=90 && right<=innerWidth) return;  // already fully visible (clear of the side nav)
+  const tx = Math.max(0, Math.min(maxX, c.offsetLeft - pad));
+  scrollToY(workEl.offsetTop + (tx/maxX)*range);
+}
 
 /* Shared signal — resolved by the intro loader once every thumbnail has
    completed decode(). Cards wait on this before being inserted into the DOM
@@ -60,11 +85,19 @@ Promise.all([projectsP, thumbsReadyP])
     const frag = document.createDocumentFragment();
     data.forEach((p,i) => {
       const c = document.createElement('div'); c.className='pc rv'; c.style.transitionDelay=(i*.06)+'s';
+      // Keyboard + screen-reader access: each card behaves as a button.
+      c.tabIndex = 0;
+      c.setAttribute('role','button');
+      c.setAttribute('aria-label', `Open project: ${p.t} (${p.year})`);
       const thumb = p.bg || ytThumb(p.v, cardTargetPx());
       const bgH = thumb ? `<div class="pc-bg" style="background-image:url('${thumb}')"></div>` : `<div class="pc-ab ${ABS[i]}"></div>`;
       const tagsH = (p.tags||[]).map(t=>`<span class="pc-tag">${t}</span>`).join('');
       c.innerHTML = `${bgH}<div class="pc-vl"></div><div class="pc-c"><div class="pc-meta"><b>${String(p.n).padStart(2,'0')}</b><span>— ${p.year}</span></div><h3 class="pc-tt">${p.t}</h3><p class="pc-ds">${p.s}</p><div class="pc-tags">${tagsH}</div></div>`;
       c.addEventListener('click',()=>openModal(p));
+      c.addEventListener('keydown',e=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); e.stopPropagation(); openModal(p); }
+      });
+      c.addEventListener('focus',()=>{ if(c.matches(':focus-visible')) revealCard(c); });
       frag.appendChild(c);
     });
     wt.appendChild(frag);
@@ -119,6 +152,9 @@ if(!isTouch){
 
   window.addEventListener('keydown', e=>{
     if(document.body.classList.contains('intro-active')) return;
+    if(mov.classList.contains('open')) return;            // let the open project panel scroll natively
+    // Space/Enter on a focused control should activate it, not scroll the page.
+    if(e.key===' ' && document.activeElement && document.activeElement.closest('button,a,[role="button"],input,textarea,select')) return;
     let handled = true;
     if(['ArrowDown'].includes(e.key))      ty = Math.min(maxScroll(), ty + 80);
     else if(['ArrowUp'].includes(e.key))   ty = Math.max(0, ty - 80);
@@ -137,6 +173,7 @@ if(!isTouch){
     navTween={start,change,t0,duration,target};
     lastWheelTs=performance.now()+duration; // suppress snap during tween
   }
+  scrollToY = y => tweenTo(y, 800);
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{
       const el = document.querySelector(a.getAttribute('href'));
@@ -183,7 +220,10 @@ if(!isTouch){
   })();
 
   window.addEventListener('scroll', ()=>{
+    // Scroll that didn't come from our loop (scrollbar drag, find-in-page, focus):
+    // adopt it as the new position and keep the horizontal gallery in sync.
     if(Math.abs(window.scrollY - cy) > 4){ cy = ty = window.scrollY; }
+    upH(window.scrollY);
   }, {passive:true});
 } else {
   window.addEventListener('scroll',()=>upH(window.scrollY),{passive:true});
@@ -191,9 +231,21 @@ if(!isTouch){
 
 /* ══ MODAL ══════════════════════════════════════════════════════════ */
 const mov=document.getElementById('mov'),mttl=document.getElementById('mttl'),mttlN=document.getElementById('mttl-n'),mttlY=document.getElementById('mttl-y'),mvw=document.getElementById('mvw'),mdesc=document.getElementById('mdesc'),mimgs=document.getElementById('mimgs'),mtags=document.getElementById('mtags');
-document.getElementById('mcl').addEventListener('click',closeM);
+const mpEl=mov.querySelector('.mp'), mclEl=document.getElementById('mcl');
+let lastFocus=null;
+mclEl.addEventListener('click',closeM);
 mov.addEventListener('click',e=>{if(e.target===mov)closeM();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+/* Dialog keyboard handling: Escape closes, Tab stays inside the panel. */
+document.addEventListener('keydown',e=>{
+  if(!mov.classList.contains('open')) return;
+  if(e.key==='Escape'){ closeM(); return; }
+  if(e.key!=='Tab') return;
+  const f=[...mpEl.querySelectorAll('button,a[href],iframe,[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length);
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+  if(e.shiftKey && (document.activeElement===first || !mpEl.contains(document.activeElement))){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && (document.activeElement===last || !mpEl.contains(document.activeElement))){ e.preventDefault(); first.focus(); }
+});
 
 /* YouTube facade: poster + play overlay → on click, mount a fresh iframe.
    Tried-and-true lite-youtube-embed pattern. Fresh iframe per play avoids
@@ -206,7 +258,12 @@ function buildYTFacade(vid,title){
   poster.className='yt-poster';
   poster.style.backgroundImage=`url('https://i.ytimg.com/vi/${vid}/${ytSizeFor(modalTargetPx())}.jpg')`;
   poster.setAttribute('role','button');
+  poster.tabIndex=0;
   poster.setAttribute('aria-label','Play '+title);
+  poster.addEventListener('keydown',e=>{
+    if(e.target!==poster) return;
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); poster.click(); }
+  });
   poster.innerHTML=`<div class="yt-play"><i class="fas fa-play"></i></div><a class="yt-fallback" href="https://www.youtube.com/watch?v=${vid}" target="_blank" rel="noopener">Open on YouTube ↗</a>`;
   poster.addEventListener('click',e=>{
     if(e.target.closest('.yt-fallback')) return;
@@ -219,6 +276,7 @@ function buildYTFacade(vid,title){
     ifr.setAttribute('allowfullscreen','');
     mvw.innerHTML='';
     mvw.appendChild(ifr);
+    ifr.focus();   // the poster we were focused on is gone — keep focus in the dialog
   });
   mvw.appendChild(poster);
 }
@@ -230,10 +288,21 @@ function openModal(p){
   const idMatch=p.v && p.v.match(/embed\/([A-Za-z0-9_-]+)/);
   buildYTFacade(idMatch?idMatch[1]:'', p.t);
   (p.imgs||[]).forEach(src=>{const img=document.createElement('img');img.src=src;img.alt=p.t;img.className='mi';mimgs.appendChild(img);});
+  lastFocus=document.activeElement;
+  mov.inert=false;
   mov.classList.add('open'); document.body.classList.add('mod-open'); document.body.style.overflow='hidden';
+  mpEl.scrollTop=0;
+  mclEl.focus({preventScroll:true});
   if(!isTouch){ty=cy;}
 }
-function closeM(){ mov.classList.remove('open'); document.body.classList.remove('mod-open'); document.body.style.overflow=''; setTimeout(()=>{mvw.innerHTML='';},600); }
+function closeM(){
+  if(!mov.classList.contains('open')) return;
+  mov.classList.remove('open'); document.body.classList.remove('mod-open'); document.body.style.overflow='';
+  mov.inert=true;
+  if(lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true});
+  lastFocus=null;
+  setTimeout(()=>{ if(!mov.classList.contains('open')) mvw.innerHTML=''; },600);
+}
 
 /* ══ INTRO LOADER + HERO ANIMATION ═════════════════════════════════ */
 function playHero(){
